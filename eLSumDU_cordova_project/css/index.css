@@ -1,0 +1,61 @@
+﻿#contenthost {
+    height: 100%;
+    width: 100%;
+}
+
+.fragment {
+    /* Define a grid with rows for a banner and a body */
+    display: -ms-flexbox;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+    .fragment header[role=banner] {
+        /* Define a grid with columns for the back button and page title. */
+        display: -ms-flexbox;
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        margin-left: 105px;
+        margin-right: 120px;
+    }
+
+        .fragment header[role=banner] .win-backbutton {
+            margin-top: 48px;
+            z-index: 1;
+            border: solid;
+            border-width: 3px;
+        }
+
+        .fragment header[role=banner] .titlearea {
+            margin-top: 37px;
+            padding-left: 10px;
+        }
+
+            .fragment header[role=banner] .titlearea .pagetitle {
+                width: calc(100% - 20px);
+            }
+
+    .fragment section[role=main] {
+        height: 100%;
+    }
+
+@media (max-width:499px) {
+    .fragment header[role=banner] {
+        margin-left: 15px;
+        margin-right: 30px;
+    }
+}
+
+@media (max-width:699px) {
+    .fragment header[role=banner] {
+        margin-left: 35px;
+        margin-right: 50px;
+    }
+}
+

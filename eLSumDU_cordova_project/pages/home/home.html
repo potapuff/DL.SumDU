@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>hubPage</title>
+
+    <link href="home.css" rel="stylesheet" />
+    <script src="./../../scripts/data.js"></script>
+    <script src="home.js"></script>
+    <script src="section3Page.js"></script>
+    <script src="pmPage.js"></script>
+</head>
+<body>
+    <div class="hubpage fragment">
+        <div id="header" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: './pages/shared/header.html'}"></div>
+        <section aria-label="Main content" role="main">
+            <div class="hub" data-win-control="WinJS.UI.Hub">
+                <div class="hero" data-win-control="WinJS.UI.HubSection">
+                </div>
+                <div class="coursesSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Course.title'} }"
+                     data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.courseHeaderNavigate }">
+                    <div class="courseSectionContent" id="courseSectionContent" data-win-control="HubApps_SectionControls.Section3Control" style="height: 100%;"
+                         data-win-options="{
+                             dataSource: WinJS.app.bindings['courses'].dataSource,
+                             layout: {type: WinJS.UI.GridLayout},
+                             oniteminvoked: select('.pagecontrol').winControl.courseItemNavigate
+                         }">
+                    </div>
+                </div>
+
+                <div class="pmSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Pm.title'} }"
+                     data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.section4HeaderNavigate }">
+                    <div class="courseSectionContent" id="section4contenthost" data-win-control="HubApps_SectionControls.pmControl" style="height: 100%;"
+                         data-win-options="{
+                             dataSource: WinJS.app.bindings['pm'].dataSource,
+                             layout: {type: WinJS.UI.GridLayout},
+                             oniteminvoked: select('.pagecontrol').winControl.section4ItemNavigate
+                         }">
+                    </div>
+                </div>
+                <!-- select('.pagecontrol').winControl.pmDataSource.dataSource, -->
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>hubPage</title>
+
+    <link href="index.css" rel="stylesheet" />
+    <script src="./../../scripts/data.js"></script>
+    <script src="show.js"></script>
+</head>
+<body>
+    <div class="smallPartyTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="smallListIconTextItem">
+            <img src="#" class="smallListIconTextItem-Image" data-win-bind="src: samll" />
+            <div class="smallListIconTextItem-Detail">
+                <h4 data-win-bind="textContent: login"></h4>
+                <h6 data-win-bind="textContent: name"></h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="hubpage fragment">
+        <div id="header" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: './pages/shared/header.html'}"></div>
+        <section aria-label="Main content" role="main">
+            <div class="hub" data-win-control="WinJS.UI.Hub">
+                <div class="courseTitleSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': '1111'} }">
+                    <p data-win-bind="innerHTML: Course.description"></p>
+                    <p data-win-bind="innerHTML: Course.annotation"></p>
+                    <p>Tutors:</p>
+                    <div class="itemslist TutorsList" data-win-control="WinJS.UI.ListView" data-win-options="{
+                        selectionMode: 'none',
+                        itemDataSource: CourseTutor.dataSource,
+                        itemTemplate: select('.smallPartyTemplate')
+                    }">
+                    </div>
+                </div>
+                <div class="coursesTextSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'textbook'} }">
+                    <!--<iframe data-win-bind="src: Course.textbook"></iframe>-->
+                </div>
+            </div>
+        </section>
+</div>
+</body>
+</html>

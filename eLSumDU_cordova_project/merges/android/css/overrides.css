@@ -1,0 +1,9 @@
+﻿
+.win-backbutton::before,
+.win-back::before {
+    font-weight: 900;
+    font-size: 24pt;
+    line-height: 100%;
+    content: "\00AB";
+    vertical-align: 0%;
+}

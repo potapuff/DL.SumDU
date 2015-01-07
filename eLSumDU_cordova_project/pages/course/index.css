@@ -1,0 +1,100 @@
+﻿.course_pivot {
+    width: 264px;
+    height: calc(100% - 38px);
+    border: solid 1px silver;
+    margin-top: 4px;
+}
+
+.course_pivot.wide {
+    min-width: 300px;
+    width: 100%;
+}
+
+.listviewpivotitem.win-pivot-item .win-pivot-item-content {
+    /* Stretch across the whole width of the screen so the whole thing is pannable.*/
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.win-listview {
+    height: 100%;
+}
+
+.course_pivot .win-listview .win-container {
+    padding: 0 0 20px 0;
+}
+
+.course_pivot .win-listview .win-itembox {
+    background-color:transparent;
+}
+
+.course_pivot .win-listview .win-item {
+    margin: 0 20px 0 0;
+    width: calc(100% - 20px);
+}
+
+.course_pivot .win-listview.win-rtl .win-item {
+    margin: 0 0 0 20px;
+}
+
+/* Mail item template CSS */
+.mailItem h2 {
+    line-height: 1.3;
+}
+
+.mailItem h5 {
+    font-size: 12pt;
+}
+
+.mailItem {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 20px;
+}
+
+.author {
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-flex: 3;
+    -webkit-flex: 3;
+    flex: 3;
+}
+
+.mailItem .title {
+    font-weight: 500;
+    margin-top: -4px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-flex: 1 100%;
+    -webkit-flex: 1 100%;
+    flex: 1 100%;
+}
+
+.mailItem .previewText {
+    margin-top: -4px;
+    /* 255 * 0.6 = 153 */
+    color: rgb(153,153,153);
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: 300;
+    -ms-flex: 1 100%;
+    -webkit-flex: 1 100%;
+    flex: 1 100%;
+}
+
+.mailItem .time {
+    margin-bottom: 4px;
+    font-weight: 300;
+    -ms-flex: 1 auto;
+    -webkit-flex: 1 auto;
+    flex: 1 auto;
+    text-align: right
+}

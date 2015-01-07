@@ -1,0 +1,11 @@
+﻿@media (min-width:768px) {
+    .home header[role=banner] {
+        margin-left: 105px;
+        margin-right: 120px;
+    }
+
+    .page2 header[role=banner] {
+        margin-left: 60px;
+        margin-right: 120px;
+    }
+}
