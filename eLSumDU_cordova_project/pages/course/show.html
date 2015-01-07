@@ -9,12 +9,11 @@
     <script src="show.js"></script>
 </head>
 <body>
-    <div class="smallPartyTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+    <div class="smallListIconTextTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="smallListIconTextItem">
-            <img src="#" class="smallListIconTextItem-Image" data-win-bind="src: samll" />
+            <img src="#" class="smallListIconTextItem-Image" data-win-bind="src: image; alt: login" draggable="false" />
             <div class="smallListIconTextItem-Detail">
-                <h4 data-win-bind="textContent: login"></h4>
-                <h6 data-win-bind="textContent: name"></h6>
+                <h4 data-win-bind="textContent: name"></h4>
             </div>
         </div>
     </div>
@@ -24,18 +23,22 @@
         <section aria-label="Main content" role="main">
             <div class="hub" data-win-control="WinJS.UI.Hub">
                 <div class="courseTitleSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': '1111'} }">
-                    <p data-win-bind="innerHTML: Course.description"></p>
-                    <p data-win-bind="innerHTML: Course.annotation"></p>
+                    <p data-win-bind="textContent: Course.description"></p>
+                    <p data-win-bind="textContent: Course.annotation"></p>
                     <p>Tutors:</p>
-                    <div class="itemslist TutorsList" data-win-control="WinJS.UI.ListView" data-win-options="{
-                        selectionMode: 'none',
-                        itemDataSource: CourseTutor.dataSource,
-                        itemTemplate: select('.smallPartyTemplate')
-                    }">
+                    <div id="listView"
+                         class="win-selectionstylefilled"
+                         data-win-control="WinJS.UI.ListView"
+                         data-win-options="{
+                itemTemplate: select('.smallListIconTextTemplate'),
+                itemDataSource: select('.pagecontrol').winControl.CourseTutors.dataSource,
+                itemsReorderable: true,
+                layout: { type: WinJS.UI.ListLayout }
+    }">
                     </div>
-                </div>
+                    </div>
                 <div class="coursesTextSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'textbook'} }">
-                    <!--<iframe data-win-bind="src: Course.textbook"></iframe>-->
+                    <x-ms-webview id="webview" data-win-bind="src: Course.textbook" width="100%" height="100%"></x-ms-webview>
                 </div>
             </div>
         </section>

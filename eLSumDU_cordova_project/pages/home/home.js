@@ -34,8 +34,6 @@
                     hub.onloadingstatechanged = null;
                 }
             }
-
-            // TODO: Initialize the page here.
         },
 
         courseDataSource: app.bindings['courses'],
@@ -45,9 +43,10 @@
             nav.navigate("./pages/course/index.html", { title: args.detail.section.header, groupKey: 'role_type', items: app.bindings['courses'] });
         }),
 
-        courseItemNavigate: util.markSupportedForProcessing(function (args) {
-            //var item = Data.getItemReference(section3Items.getAt(args.detail.itemIndex));
-            //nav.navigate("/pages/course/show.html", { item: item });
+        courseItemNavigate:  util.markSupportedForProcessing(function (event) {
+            event.detail.itemPromise.done(function (invokedItem) {
+                WinJS.Navigation.navigate("./pages/course/show.html", { Course: invokedItem.data });
+            });
         }),
 
         unload: function () {

@@ -1,4 +1,9 @@
-﻿.hubpage header[role=banner] {
+﻿.win-listview {
+  height: 100%;
+  overflow:visible;
+}
+
+.hubpage header[role=banner] {
     position: relative;
     z-index: 2;
 }

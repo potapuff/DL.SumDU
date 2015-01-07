@@ -53,8 +53,6 @@
         },
 
         _itemInvoked: function (args) {
-//          var item = this._items.getAt(args.detail.itemIndex);
-//          WinJS.Navigation.navigate("/pages/course/show.html", { item: Data.getItemReference(item) });
             args.detail.itemPromise.done(function (invokedItem) {
                 WinJS.Navigation.navigate("./pages/course/show.html", { Course: invokedItem.data  });
             });

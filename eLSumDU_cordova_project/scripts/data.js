@@ -5,13 +5,9 @@
 
     function doAuth(options) {
         options = options || {};
-        console.log('doAuth');
-        //console.log(app.url + "party/login?login=" + app.User.login + "&password=" + app.User.password);
         return WinJS.xhr({ url: app.url + "party/login?login=" + app.User.login + "&password=" + app.User.password })
           .then(
           function (response) {
-              console.log('Request ok');
-              console.log(response);
               app.User.authentificated = true;
               app.User.attempts = 0;
               if (options.success) {
@@ -19,8 +15,6 @@
               }
           },
           function (error) {
-              console.log('Auth error');
-              console.log(error)
               if (options.error) {
                   options.error(error);
               }
@@ -68,15 +62,9 @@
     });
 
     function getPm() {
-
-        console.log('getPm');
-        console.log(app.url + "pm");
-
         var url = app.url + "pm";
         return WinJS.xhr({ url: url }).then(  
           function (response) {
-              console.log('Success:');
-              console.log(response.responseText);
               var data = JSON.parse(response.responseText).data;
               for (var i = 0, len = data.length; i < len; i++) {
                   app.bindings['pm'].push(data[i]);

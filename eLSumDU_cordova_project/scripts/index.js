@@ -38,9 +38,8 @@
         nav.history = app.sessionState.history || {};
         nav.history.current.initialPlaceholder = true;
 
-        // Optimize the load of the application and while the splash screen is shown, execute high priority scheduled work.
         ui.disableAnimations();
-        console.log(Windows.Globalization.ApplicationLanguages.languages[0]);
+        //TODO: do l10n 
         var p = WinJS.xhr({ url: "./strings/" + Windows.Globalization.ApplicationLanguages.languages[0] + "/resources.resjson" })
           .then(function (response) {
               window.strings = JSON.parse(response.responseText);

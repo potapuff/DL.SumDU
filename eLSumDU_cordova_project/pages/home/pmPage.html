@@ -6,18 +6,16 @@
 </head>
 <body>
     <div class="fragment pmPage">
-        <section aria-label="Main content" role="main">
-            <div class="pmTemplate" data-win-control="WinJS.Binding.Template">
-                <img src="#" data-win-bind="src: backgroundImage; alt: subject" />
-                <div class="win-type-medium" data-win-bind="textContent: cc_list"></div>
-                <div class="win-type-small" data-win-bind="textContent: body"></div>
-            </div>
-            <div class="pm_itemslist win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{
+        <div class="pmTemplate" data-win-control="WinJS.Binding.Template">
+            <img src="#" data-win-bind="src: backgroundImage; alt: subject" />
+            <div class="win-type-medium" data-win-bind="textContent: cc_list"></div>
+            <div class="win-type-small" data-win-bind="textContent: body"></div>
+        </div>
+        <div class="pm_itemslist win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{
                         selectionMode: 'none',
                         itemTemplate: select('.pmTemplate')
                     }">
-            </div>
-        </section>
+        </div>
     </div>
 </body>
 </html>

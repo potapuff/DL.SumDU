@@ -6,28 +6,35 @@
     var session = app.sessionState;
     var util = WinJS.Utilities;
 
+    var varCourseTutors = new WinJS.Binding.List();
+
+
     WinJS.UI.Pages.define("./pages/course/show.html", {
         processed: function (element, options) {
             WinJS.Binding.processAll(element, this);
+            WinJS.UI.processAll(element).then(function () {
+                for (var i in options.Course.tutors) {
+                    var tutor = options.Course.tutors[i];
+                    DL.User.byLogin(tutor).done(function (obj) {
+                        varCourseTutors.push(obj);
+                    });
+                }
+            });
             return WinJS.Resources.processAll();
         },
 
         ready: function (element, options) {
-            var Course = this.Course;
-            document.querySelector(".titlearea .pagetitle").textContent = Course.title;
-            for (var i in Course.tutors) {
-                var tutor = Course.tutors[i];
-                DL.User.byLogin(tutor).done(function (obj) {
-                    document.querySelector(".TutorsList").winControl.itemDataSource.push(obj);
-                });
-            }
+            var course = options.Course;
+            document.querySelector(".titlearea .pagetitle").textContent = course.title;
+           //document.querySelector("#courseFrame").src = course.textbook;
+
             if (WinJS.Utilities.isPhone) {
                 document.getElementById("backButton").style.display = "none";
             }
         },
+        CourseTutors: varCourseTutors,
         init: function (element, options) {
             this.Course = options.Course;
-            this.CourseTutor = new WinJS.Binding.List();
         },
         unload: function () {
             // TODO: Respond to navigations away from this page.

@@ -115,6 +115,7 @@
     <Content Include="pages\course\show.js" />
     <Content Include="pages\shared\header.html" />
     <Content Include="scripts\data.js" />
+    <Content Include="scripts\safeHtmlPolyfill.js" />
     <Content Include="scripts\winjs\base.js" />
     <Content Include="scripts\winjs\base.min.js" />
     <Content Include="scripts\winjs\ui.js" />
