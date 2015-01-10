@@ -12,6 +12,7 @@
             <div class="win-type-small" data-win-bind="textContent: body"></div>
         </div>
         <div class="pm_itemslist win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{
+                        itemDataSource: DL.Messages.unread.dataSource,
                         selectionMode: 'none',
                         itemTemplate: select('.pmTemplate')
                     }">

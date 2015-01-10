@@ -21,7 +21,7 @@
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.courseHeaderNavigate }">
                     <div class="courseSectionContent" id="courseSectionContent" data-win-control="HubApps_SectionControls.Section3Control" style="height: 100%;"
                          data-win-options="{
-                             dataSource: WinJS.app.bindings['courses'].dataSource,
+                             dataSource: DL.Courses.courses.dataSource,
                              layout: {type: WinJS.UI.GridLayout},
                              oniteminvoked: select('.pagecontrol').winControl.courseItemNavigate
                          }">
@@ -32,13 +32,12 @@
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.section4HeaderNavigate }">
                     <div class="courseSectionContent" id="section4contenthost" data-win-control="HubApps_SectionControls.pmControl" style="height: 100%;"
                          data-win-options="{
-                             dataSource: WinJS.app.bindings['pm'].dataSource,
+                             dataSource: DL.Messages.messages.dataSource,
                              layout: {type: WinJS.UI.GridLayout},
                              oniteminvoked: select('.pagecontrol').winControl.section4ItemNavigate
                          }">
                     </div>
                 </div>
-                <!-- select('.pagecontrol').winControl.pmDataSource.dataSource, -->
             </div>
         </section>
     </div>

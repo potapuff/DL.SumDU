@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    var app = WinJS.app;
 
     var ControlConstructor = WinJS.UI.Pages.define("./pages/users/loginPage.html", {
         // This function is called after the page control contents 
@@ -8,17 +7,25 @@
         // the resulting elements have been parented to the DOM. 
         ready: function (element, options) {
             options = options || {};
+            var user = DL.Users.currentUser;
+            if (user) {
+                document.querySelector('#login').value = user.login;
+            }
             var button = document.querySelector("#loginButton");
             button.addEventListener("click", this.processLogin,false);
         },
         processLogin: function (args) {
-            app.User.login = document.querySelector('#login').value;
-            app.User.password = document.querySelector('#password').value;
+            var user =  DL.Users.currentUser || {}
+            user.login = document.querySelector('#login').value;
+            user.password = document.querySelector('#password').value;
+            user.auto_login = true;  // TODO: Append UI with checkbox
+            DL.Users._currentUser = user;
+            DL.Users.currentUser; //Renew cache data
             WinJS.Promise.as(
                 {
                     success: function (responce) {
                         console.log(responce);
-                        if (app.User.authentificated) {
+                        if (DL.Users.currentUser.authentificated) {
                             WinJS.Navigation.navigate("./pages/home/home.html", args);
                         } else {
                             var pane = document.querySelector(".error-message");
@@ -35,7 +42,7 @@
                         pane.innerHtml("<progress class='win-ring'></progress>");
                     }
 
-                }).then(DL.doAuth);
+                }).then(DL.Users.doAuth);
         }
         });
 

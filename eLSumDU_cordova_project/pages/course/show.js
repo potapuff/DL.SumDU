@@ -15,7 +15,7 @@
             WinJS.UI.processAll(element).then(function () {
                 for (var i in options.Course.tutors) {
                     var tutor = options.Course.tutors[i];
-                    DL.User.byLogin(tutor).done(function (obj) {
+                    DL.Users.byLogin(tutor).done(function (obj) {
                         varCourseTutors.push(obj);
                     });
                 }

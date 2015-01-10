@@ -6,17 +6,12 @@
     var session = app.sessionState;
     var util = WinJS.Utilities;
 
-    var section3Group = Data.resolveGroupReference("group4");
-    app.bindings['courses'] = new WinJS.Binding.List();
-    app.bindings['pm'] = new WinJS.Binding.List();
-
     WinJS.UI.Pages.define("./pages/home/home.html", {
 
         init: function(element, options){
             return WinJS.Promise.as()
-            .then(DL.doAuth)
-            .then(DL.Courses.getCourses)
-            .then(DL.Pm.getPm);
+            .then(function () { DL.Courses.courses })
+            .then(function () { DL.Messages.messages });
         },
         processed: function (element) {
             return WinJS.Resources.processAll()
@@ -36,11 +31,8 @@
             }
         },
 
-        courseDataSource: app.bindings['courses'],
-        pmDataSource: app.bindings['pm'],
-
         courseHeaderNavigate: util.markSupportedForProcessing(function (args) {
-            nav.navigate("./pages/course/index.html", { title: args.detail.section.header, groupKey: 'role_type', items: app.bindings['courses'] });
+            nav.navigate("./pages/course/index.html", { title: args.detail.section.header, groupKey: 'role_type', items: DL.Courses.courses });
         }),
 
         courseItemNavigate:  util.markSupportedForProcessing(function (event) {

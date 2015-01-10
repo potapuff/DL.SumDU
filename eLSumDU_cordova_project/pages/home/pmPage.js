@@ -10,7 +10,6 @@
 
             var listView = element.querySelector(".pm_itemslist").winControl;
 
-            listView.itemDataSource = options.dataSource;
             listView.layout = options.layout;
             listView.oniteminvoked = options.oniteminvoked;
         }

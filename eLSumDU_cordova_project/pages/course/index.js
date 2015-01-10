@@ -2,11 +2,10 @@
     "use strict";
 
     var ui = WinJS.UI;
-    var app = WinJS.app;
 
     ui.Pages.define("./pages/course/index.html", {
 
-        _items: app.bindings['courses'],
+        _items: DL.Courses.grouped_courses,
 
         processed: function (element) {
             var pivot = document.querySelector('.course_pivot').winControl;

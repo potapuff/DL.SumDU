@@ -5,14 +5,16 @@
     <script src="section3Page.js"></script>
 </head>
 <body>
-    <div class="itemTemplate" data-win-control="WinJS.Binding.Template">
+    <div class="itemTemplate courseTemplate" data-win-control="WinJS.Binding.Template">
         <img src="#" data-win-bind="src: logo; alt: title" />
         <div class="win-type-medium" data-win-bind="textContent: title"></div>
         <div class="win-type-small" data-win-bind="textContent: annotation"></div>
+        <p>1</p>
     </div>
     <div class="itemslist win-selectionstylefilled" data-win-control="WinJS.UI.ListView" data-win-options="{
+                        itemDataSource: DL.Courses.courses.dataSource,
                         selectionMode: 'none',
-                        itemTemplate: select('.itemTemplate')
+                        itemTemplate: select('.courseTemplate')
                     }">
     </div>
 </body>
