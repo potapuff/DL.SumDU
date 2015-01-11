@@ -130,6 +130,7 @@
     <Content Include="merges\windows\css\overrides.css" />
     <Content Include="merges\windows\scripts\platformOverrides.js" />
     <Content Include="merges\windows\scripts\winstore-jscompat.js" />
+    <Content Include="strings\uk-UA\resources.resjson" />
     <Folder Include="merges\wp8\" />
     <Folder Include="res\icons\android\" />
     <Folder Include="res\icons\ios\" />

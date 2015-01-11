@@ -32,7 +32,11 @@
         nav.history.current.initialPlaceholder = true;
 
         ui.disableAnimations();
-        var p = WinJS.xhr({ url: "./strings/" + Windows.Globalization.ApplicationLanguages.languages[0] + "/resources.resjson" })
+        var lang = window.navigator.language.replace('-', '_');
+        if (['uk-UA', 'en-US'].indexOf(lang) < 0 ) {
+            lang = 'en-US';
+        }
+        var p = WinJS.xhr({ url: "./strings/" + lang + "/resources.resjson" })
           .then(function (response) {
               window.strings = JSON.parse(response.responseText);
         }).then(ui.processAll)

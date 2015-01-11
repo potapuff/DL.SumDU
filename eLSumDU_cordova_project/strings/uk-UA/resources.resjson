@@ -1,0 +1,9 @@
+﻿{
+    "App.title": "eLearning в СумДУ",
+	"Course.title": "Курси",
+	"Pm.title": "Повідомлення",
+
+	"Roles.course.tutor":"Викладання",
+	"Roles.course.student":"Вивчення"
+
+}
