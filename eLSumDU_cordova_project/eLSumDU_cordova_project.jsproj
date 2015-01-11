@@ -110,6 +110,8 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\home.css" />
+    <Content Include="fonts\Symbols.ttf" />
     <Content Include="images\bg.jpg" />
     <Content Include="pages\course\show.html" />
     <Content Include="pages\course\show.js" />
