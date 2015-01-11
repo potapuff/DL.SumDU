@@ -21,6 +21,13 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             var hub = element.querySelector(".hub").winControl;
+            /*
+            var matches = document.querySelectorAll('.pmSection .win-item img');
+            for (var i in matches){
+                var item = matches[i];
+                DL.Users.byId(item['data-sender']).done(function (x) { item.src = x.image });
+            }
+            */
             hub.onheaderinvoked = function (args) {
                 args.detail.section.onheaderinvoked(args);
             };

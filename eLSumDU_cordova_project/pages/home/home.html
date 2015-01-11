@@ -7,8 +7,6 @@
     <link href="home.css" rel="stylesheet" />
     <script src="./../../scripts/data.js"></script>
     <script src="home.js"></script>
-    <script src="section3Page.js"></script>
-    <script src="pmPage.js"></script>
 </head>
 <body>
     <div class="hubpage fragment">
@@ -19,23 +17,39 @@
                 </div>
                 <div class="coursesSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Course.title'} }"
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.courseHeaderNavigate }">
-                    <div class="courseSectionContent" id="courseSectionContent" data-win-control="HubApps_SectionControls.Section3Control" style="height: 100%;"
-                         data-win-options="{
-                             dataSource: DL.Courses.courses.dataSource,
-                             layout: {type: WinJS.UI.GridLayout},
-                             oniteminvoked: select('.pagecontrol').winControl.courseItemNavigate
-                         }">
+                    <div class="headerTemplate" id="coursesHeader"  data-win-control="WinJS.Binding.Template">
+                        <div class="win-type-large">
+                            <h1 data-win-bind="innerText: title"></h1>
+                        </div>
+                    </div>
+                    <div class="itemTemplate"  id="courseItem" data-win-control="WinJS.Binding.Template">
+                        <img src="#" data-win-bind="src: logo; alt: title" />
+                        <div class="win-type-medium" data-win-bind="textContent: title"></div>
+                    </div>
+                    <div class="itemslist" data-win-control="WinJS.UI.ListView" data-win-options="{
+                        itemDataSource: DL.Courses.grouped_courses.dataSource,
+                        groupDataSource: DL.Courses.grouped_courses.groups.dataSource,
+                        selectionMode: 'none',
+                        itemTemplate: select('#courseItem'),
+                        groupHeaderTemplate: select('#courseHeader'),
+                        layout: {type: WinJS.UI.GridLayout},
+                        oniteminvoked: select('.pagecontrol').winControl.courseItemNavigate
+                    }">
                     </div>
                 </div>
 
                 <div class="pmSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Pm.title'} }"
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.section4HeaderNavigate }">
-                    <div class="courseSectionContent" id="section4contenthost" data-win-control="HubApps_SectionControls.pmControl" style="height: 100%;"
-                         data-win-options="{
-                             dataSource: DL.Messages.messages.dataSource,
-                             layout: {type: WinJS.UI.GridLayout},
-                             oniteminvoked: select('.pagecontrol').winControl.section4ItemNavigate
-                         }">
+                    <div class="itemTemplate" id="pmItem" data-win-control="WinJS.Binding.Template">
+                        <img src="#" data-win-bind="src: backgroundImage; alt: subject; sender: sender_id" />
+                        <div class="win-type-medium" data-win-bind="textContent: subject"></div>
+                    </div>
+                    <div class="itemslist" id="messagesList" data-win-control="WinJS.UI.ListView" data-win-options="{
+                        itemDataSource: DL.Messages.unread.dataSource,
+                        selectionMode: 'none',
+                        itemTemplate: select('#pmItem'),
+                        oniteminvoked: select('.pagecontrol').winControl.section4ItemNavigate
+                    }">
                     </div>
                 </div>
             </div>

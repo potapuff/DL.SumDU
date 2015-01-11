@@ -154,10 +154,6 @@
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
-    <Content Include="pages\home\pmPage.html" />
-    <Content Include="pages\home\pmPage.js" />
-    <Content Include="pages\home\section3Page.html" />
-    <Content Include="pages\home\section3Page.js" />
     <Content Include="pages\users\loginPage.html" />
     <Content Include="pages\users\loginPage.js" />
     <Content Include="res\native\windows\CordovaApp_TemporaryKey.pfx" />
