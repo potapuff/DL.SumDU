@@ -21,13 +21,8 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             var hub = element.querySelector(".hub").winControl;
-            /*
-            var matches = document.querySelectorAll('.pmSection .win-item img');
-            for (var i in matches){
-                var item = matches[i];
-                DL.Users.byId(item['data-sender']).done(function (x) { item.src = x.image });
-            }
-            */
+            element.querySelector("header[role=banner] .pagetitle").textContent = WinJS.Resources.getString("App.title").value;
+
             hub.onheaderinvoked = function (args) {
                 args.detail.section.onheaderinvoked(args);
             };
@@ -39,12 +34,23 @@
         },
 
         courseHeaderNavigate: util.markSupportedForProcessing(function (args) {
-            nav.navigate("./pages/course/index.html", { title: args.detail.section.header, groupKey: 'role_type', items: DL.Courses.courses });
+            nav.navigate("./pages/courses/index.html", { title: args.detail.section.header, groupKey: 'role_type', items: DL.Courses.courses });
         }),
 
         courseItemNavigate:  util.markSupportedForProcessing(function (event) {
             event.detail.itemPromise.done(function (invokedItem) {
-                WinJS.Navigation.navigate("./pages/course/show.html", { Course: invokedItem.data });
+                WinJS.Navigation.navigate("./pages/courses/show.html", { Course: invokedItem.data });
+            });
+        }),
+
+        messageHeaderNavigate: util.markSupportedForProcessing(function (args) {
+            nav.navigate("./pages/messages/index.html", { groupKey: 'I'});
+        }),
+
+        messageItemNavigate:  util.markSupportedForProcessing(function (event) {
+            event.detail.itemPromise.done(function (invokedItem) {
+                WinJS.Navigation.navigate("./pages/messages/index.html",
+                    {  mail: invokedItem.data, groupKey: invokedItem.data.folder_type });
             });
         }),
 

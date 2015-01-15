@@ -3,14 +3,93 @@
 
     var app = WinJS.app;
 
+    function processPage(_url) {
+        console.log(_url);
+        var url = document.createElement('a');
+        url.href = _url;
+        var placeholder = document.querySelector(".courseHolder");
+        var process  = function (progress) {
+            placeholder.innerHTML = "<progress class='win-ring' id='progressRing'></progress>";
+        }
+        var error = function(error){
+            placeholder.innerHTML = "page fetch fail";
+        }
+
+        return WinJS.xhr({ url: url.href })
+               .then(
+                  function (response) {
+                      console.log('start process');
+                      console.log(response);
+                      var html = response.responseText;
+                      var textbooks,ex;
+                      try {
+                          textbooks = (new DOMParser()).parseFromString(html, "text/html");
+                      } catch (ex) {
+                          var doc = document.implementation.createHTMLDocument("");
+                          WinJS.Utilities.setInnerHTMLUnsafe(doc.documentElement, html);
+                          textbooks = doc;
+                      }
+                      // get root url for document 
+                      var parts = url.pathname.replace('index.html', '').replace(/\/$/, '').split('/');
+                      var normalized_doc_url = [url.protocol + '/', url.host, parts.join('/')].join('/');
+                      parts.pop();
+                      var normalized_root_url = [url.protocol + '/', url.host, parts.join('/')].join('/')
+                      // rush!
+                      WinJS.Utilities.query('a', textbooks).forEach(function (obj, idx, arr) {
+                          var str = obj.attributes['href'] && obj.attributes['href'].value;
+                          if (!str) {
+                              return;
+                          }
+                          if (str.indexOf('/') == 0) {
+                              obj.protocol = url.protocol;
+                              obj.hostname = url.hostname;
+                          } else {
+                              if (str.indexOf('..') == 0) {
+                                  str = str.replace('..', normalized_root_url);
+                                  obj.href = str;
+                              } else {
+                                  obj.href = normalized_doc_url +'/' + str;
+                              }
+                          }
+                      });
+                      var base_url = new RegExp(/^.*\/\/.*?\/(www\/)?/);
+                      WinJS.Utilities.query('img', textbooks).forEach(function (obj, idx, arr) {
+                          obj.src = obj.src.replace(base_url, normalized_doc_url + '/');
+                      });
+                      console.log('before place')
+                      WinJS.Utilities.setInnerHTMLUnsafe(placeholder, textbooks.getElementsByClassName('mainContent')[0].innerHTML);
+                      console.log('after place')
+                      WinJS.Utilities.query('a', placeholder).forEach(function (obj, idx, arr) {
+                          obj.addEventListener('click', DL.Textbook.navigate, false);
+                      });
+                      console.log('touch img')
+                      WinJS.Utilities.query('img', placeholder).forEach(function (obj, idx, arr) { obj.src = obj.src+'?renew';});
+                  }, error, process
+                  );
+    }
+
+    var textbookClickEvent = function (event) {
+        DL.Textbook.processPage(event.target.href);
+        event.preventDefault();
+        return false;
+    };
+
+
+    WinJS.Namespace.define("DL.Textbook", {
+        processPage: processPage,
+        navigate: textbookClickEvent,
+    });
+
+    //TODO remane url to api_url
     WinJS.Namespace.define("DL", {
-        url: "http://dl.sumdu.edu.ua/api/v1/"
+        url: "http://dl.sumdu.edu.ua/api/v1/",
+        site: "dl.sumdu.edu.ua"
     });
 
     function currentUser() {
         var user = DL.Users._currentUser || getCacheData('current_user', 60 * 60 * 24 * 7 * 3);
         if (user && user.auto_login) {
-            cacheData('current_user', {login:user.login, password:user.password,auto_login:user.auto_login}); //TODO add checkbox 
+            cacheData('current_user', {login:user.login, password:user.password,auto_login:user.auto_login});
         }
         return user;
     }
@@ -55,7 +134,7 @@
     WinJS.Namespace.define("DL.Users", {
         currentUser: { get: currentUser },
         doAuth: doAuth,
-        doLogout: doLogout 
+        doLogout: doLogout
     });
 
     function getCourses() {
@@ -91,7 +170,7 @@
                   var courses = DL.Courses.courses;
                   for (var i in data) {
                       if (!data[i].logo) {
-                        data[i].logo = './images/empty_course.png'
+                          data[i].logo = './images/courses/default.png'
                       }
                       courses.push(data[i]);
                   }
@@ -132,9 +211,10 @@
         return WinJS.xhr({ url: url }).then(  
           function (response) {
               var data = JSON.parse(response.responseText).data;
-              console.log(data);
               var messages = DL.Messages.messages;
               for (var i = 0, len = data.length; i < len; i++) {
+                  var user = DL.Users.byId(data[i].sender_id);
+                  data[i].sender = user;
                   messages.push(data[i]);
               }
               return messages;
@@ -188,71 +268,54 @@
     }
 
 
-    var noOne = {id: -1, login: 'UNKNOWN', name: 'UNKNOWN' };
+    var noOne = { id: -1, login: 'UNKNOWN', name: 'UNKNOWN', image: './images/users/default.png' };
+
+    function processingUserStub(user_id) {
+        return WinJS.Binding.as({ name: 'processing...', image: './images/users/processing.gif', id: user_id });
+    }
 
     function cacheUsers() {
         //TODO add caching
     }
 
-    function getUserById(id) {
+    function getUserById(user_id) {
+        if (typeof user_id == 'undefined') {
+            return noOne;
+        }
         if (!DL.Users._users) {
             initUsers();
         }
-        var id = DL.Users._users_by_id.groups.getItemFromKey(id);
+        var id = DL.Users._users_by_id.groups.getItemFromKey(user_id);
+        var user;
         if (id) {
-            var item = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
-            return WinJS.Promise.wrap(item);
+            user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
         } else {
-            var url = DL.url + "party/by_id/" + id;
-            return WinJS.xhr({ url: url }).then(
+            user = processingUserStub(user_id);
+            DL.Users._users.push(user);
+            var url = DL.url + "party/by_id/" + user_id;
+            WinJS.xhr({ url: url }).then(
               function (response) {
-                  var data = JSON.parse(response.responseText).data;
-                  DL.Users._users.push(data);
-                  cacheUsers();
-                  return data;
-              },
-              function (error) {
-                  console.log('error:' + error.responseText);
-                  return noOne;
-              },
-              function (progress) { }
-              );
+                var data = JSON.parse(response.responseText).data;
+                var id = DL.Users._users_by_id.groups.getItemFromKey(data.id);
+                var user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
+                extend(user, data);
+                DL.Users._users_by_id.notifyReload();
+                cacheUsers();
+                return user;
+                },
+                function (error) {
+                    console.log('error:' + error.responseText);
+                    return noOne;
+                },
+                function (progress) { }
+            );
         }
-    }
-
-    function getUserByLogin(login, options) {
-        options = options || {};
-        if (!DL.Users._users) {
-            initUsers();
-        }
-        var id = DL.Users._users_by_login.groups.getItemFromKey(login);
-        if (id) {
-            var item = DL.Users._users_by_login.getAt(id.firstItemIndexHint);
-            return WinJS.Promise.wrap(item);
-        } else {
-            var url = DL.url + "party/by_login/" + login;
-            return WinJS.xhr({ url: url }).then(
-              function (response) {
-                  var data = JSON.parse(response.responseText).data;
-                  DL.Users._users.push(data);
-                  cacheUsers();
-                  return data;
-              },
-              function (error) {
-                  console.log('error:' + error.responseText);
-                  return noOne
-              },
-              function (progress) { }
-              );
-        }
+        return user;
     }
 
     WinJS.Namespace.define("DL.Users", {
         byId: getUserById,
-        byLogin: getUserByLogin,
     });
-
-
 
     //------------------------------------------
 
@@ -277,6 +340,14 @@
                 clearCache(key);
             }
         }
+    }
+
+    //Copy from hash to object 
+    function extend(dest, source) {
+        for (var prop in source) {
+            dest.setProperty(prop, source[prop]);
+        }
+        return dest;
     }
    
 })();

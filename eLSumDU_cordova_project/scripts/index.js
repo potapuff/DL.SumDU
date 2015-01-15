@@ -32,7 +32,7 @@
         nav.history.current.initialPlaceholder = true;
 
         ui.disableAnimations();
-        var lang = window.navigator.language.replace('-', '_');
+        var lang = window.navigator.language;
         if (['uk-UA', 'en-US'].indexOf(lang) < 0 ) {
             lang = 'en-US';
         }
@@ -65,3 +65,4 @@
     }
 
 })();
+

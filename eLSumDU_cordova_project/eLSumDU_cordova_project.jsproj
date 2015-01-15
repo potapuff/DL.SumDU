@@ -113,10 +113,17 @@
     <Content Include="css\home.css" />
     <Content Include="fonts\Symbols.ttf" />
     <Content Include="images\bg.jpg" />
-    <Content Include="pages\course\show.html" />
-    <Content Include="pages\course\show.js" />
+    <Content Include="images\courses\default.png" />
+    <Content Include="images\users\default.png" />
+    <Content Include="images\users\processing.gif" />
+    <Content Include="pages\courses\show.html" />
+    <Content Include="pages\courses\show.js" />
+    <Content Include="pages\messages\index.css" />
+    <Content Include="pages\messages\index.html" />
+    <Content Include="pages\messages\index.js" />
     <Content Include="pages\shared\header.html" />
     <Content Include="scripts\data.js" />
+    <Content Include="scripts\jquery-2.1.3.min.js" />
     <Content Include="scripts\safeHtmlPolyfill.js" />
     <Content Include="scripts\winjs\base.js" />
     <Content Include="scripts\winjs\base.min.js" />
@@ -148,9 +155,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="index.html" />
-    <Content Include="pages\course\index.css" />
-    <Content Include="pages\course\index.html" />
-    <Content Include="pages\course\index.js" />
+    <Content Include="pages\courses\index.css" />
+    <Content Include="pages\courses\index.html" />
+    <Content Include="pages\courses\index.js" />
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />

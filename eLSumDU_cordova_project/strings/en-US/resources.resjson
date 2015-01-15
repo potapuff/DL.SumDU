@@ -1,9 +1,18 @@
 ﻿{
     "App.title": "eLearning SSU",
 	"Course.title": "Courses",
-	"Pm.title": "Messages",
+	"Messages.title": "Messages",
+	"Messages.Folder.I": "Inbox",
+	"Messages.Folder.S": "Send",
+	"Messages.Folder.T": "Trash",
 
 	"Roles.course.tutor":"Tutoring",
-	"Roles.course.student":"Studying"
+	"Roles.course.student":"Studying",
+
+	"Login.title": "Login to DL.SumDU",
+	"Login.password": "Password",
+	"Login.login": "Login",
+	"Login.auto": "auto login on start",
+	"Login.submit":"Login!"
 
 }

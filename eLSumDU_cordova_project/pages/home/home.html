@@ -19,36 +19,41 @@
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.courseHeaderNavigate }">
                     <div class="headerTemplate" id="coursesHeader"  data-win-control="WinJS.Binding.Template">
                         <div class="win-type-large">
-                            <h1 data-win-bind="innerText: title"></h1>
+                            <h1 data-win-bind="innerText: title.value"></h1>
                         </div>
                     </div>
-                    <div class="itemTemplate"  id="courseItem" data-win-control="WinJS.Binding.Template">
-                        <img src="#" data-win-bind="src: logo; alt: title" />
+                    <div class="itemTemplate" id="courseItem" data-win-control="WinJS.Binding.Template">
+                        <img src="#" data-win-bind="src: logo; alt: title"  class="pic_course"/>
                         <div class="win-type-medium" data-win-bind="textContent: title"></div>
                     </div>
-                    <div class="itemslist" data-win-control="WinJS.UI.ListView" data-win-options="{
+                    <div class="itemslist tiles_list" data-win-control="WinJS.UI.ListView" data-win-options="{
                         itemDataSource: DL.Courses.grouped_courses.dataSource,
                         groupDataSource: DL.Courses.grouped_courses.groups.dataSource,
                         selectionMode: 'none',
                         itemTemplate: select('#courseItem'),
-                        groupHeaderTemplate: select('#courseHeader'),
+                        groupHeaderTemplate: select('#coursesHeader'),
                         layout: {type: WinJS.UI.GridLayout},
                         oniteminvoked: select('.pagecontrol').winControl.courseItemNavigate
                     }">
                     </div>
                 </div>
 
-                <div class="pmSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Pm.title'} }"
-                     data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.section4HeaderNavigate }">
-                    <div class="itemTemplate" id="pmItem" data-win-control="WinJS.Binding.Template">
-                        <img src="#" data-win-bind="src: backgroundImage; alt: subject; sender: sender_id" />
-                        <div class="win-type-medium" data-win-bind="textContent: subject"></div>
+                <div class="pmSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Messages.title'} }"
+                     data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.messageHeaderNavigate }">
+                    <div class="smallListIconTextTemplate" id="pmItem" data-win-control="WinJS.Binding.Template">
+                        <div class="smallListIconTextItem">
+                            <img src="#" data-win-bind="src: sender.image; alt: subject" class="smallListIconTextItem-Image pic_user"/>
+                            <div class="smallListIconTextItem-Detail">
+                                <h4 data-win-bind="textContent: subject"></h4>
+                                <h6 data-win-bind="textContent: sender.name"></h6>
+                            </div>
+                        </div>
                     </div>
                     <div class="itemslist" id="messagesList" data-win-control="WinJS.UI.ListView" data-win-options="{
                         itemDataSource: DL.Messages.unread.dataSource,
                         selectionMode: 'none',
                         itemTemplate: select('#pmItem'),
-                        oniteminvoked: select('.pagecontrol').winControl.section4ItemNavigate
+                        oniteminvoked: select('.pagecontrol').winControl.messageItemNavigate
                     }">
                     </div>
                 </div>

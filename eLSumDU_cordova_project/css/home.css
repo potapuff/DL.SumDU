@@ -3,23 +3,6 @@
     margin-right: 120px;
 }
 
-.coursesSection .win-item {
-        height: 229px;
-        width: 310px;
-    }
-
-.coursesSection .win-item img {
-        height: 150px;
-        width: 310px;
-        overflow:hidden;
-}
-
-.pmSection .win-item {
-}
-
-.pmSection .win-item img {
-}
-
 
 @media (max-width:499px) {
     .hub section[role=main] {
