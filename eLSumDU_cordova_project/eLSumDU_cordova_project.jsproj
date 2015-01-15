@@ -116,14 +116,15 @@
     <Content Include="images\courses\default.png" />
     <Content Include="images\users\default.png" />
     <Content Include="images\users\processing.gif" />
+    <Content Include="merges\windows\pages\home\home.html" />
     <Content Include="pages\courses\show.html" />
     <Content Include="pages\courses\show.js" />
+    <Content Include="pages\home\home.html" />
     <Content Include="pages\messages\index.css" />
     <Content Include="pages\messages\index.html" />
     <Content Include="pages\messages\index.js" />
     <Content Include="pages\shared\header.html" />
     <Content Include="scripts\data.js" />
-    <Content Include="scripts\jquery-2.1.3.min.js" />
     <Content Include="scripts\safeHtmlPolyfill.js" />
     <Content Include="scripts\winjs\base.js" />
     <Content Include="scripts\winjs\base.min.js" />
@@ -140,6 +141,8 @@
     <Content Include="merges\windows\scripts\platformOverrides.js" />
     <Content Include="merges\windows\scripts\winstore-jscompat.js" />
     <Content Include="strings\uk-UA\resources.resjson" />
+    <Folder Include="merges\android\pages\" />
+    <Folder Include="merges\ios\pages\" />
     <Folder Include="merges\wp8\" />
     <Folder Include="res\icons\android\" />
     <Folder Include="res\icons\ios\" />
@@ -159,7 +162,6 @@
     <Content Include="pages\courses\index.html" />
     <Content Include="pages\courses\index.js" />
     <Content Include="pages\home\home.css" />
-    <Content Include="pages\home\home.html" />
     <Content Include="pages\home\home.js" />
     <Content Include="pages\users\loginPage.html" />
     <Content Include="pages\users\loginPage.js" />

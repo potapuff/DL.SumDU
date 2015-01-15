@@ -12,10 +12,8 @@
     <div class="hubpage fragment">
         <div id="header" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: './pages/shared/header.html'}"></div>
         <section aria-label="Main content" role="main">
-            <div class="hub" data-win-control="WinJS.UI.Hub">
-                <div class="hero" data-win-control="WinJS.UI.HubSection">
-                </div>
-                <div class="coursesSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Course.title'} }"
+            <div class="hub" data-win-control="WinJS.UI.Pivot">
+                <div class="coursesSection" data-win-control="WinJS.UI.PivotItem" data-win-res="{ winControl: {'header': 'Course.title'} }"
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.courseHeaderNavigate }">
                     <div class="headerTemplate" id="coursesHeader"  data-win-control="WinJS.Binding.Template">
                         <div class="win-type-large">
@@ -38,11 +36,11 @@
                     </div>
                 </div>
 
-                <div class="pmSection" data-win-control="WinJS.UI.HubSection" data-win-res="{ winControl: {'header': 'Messages.title'} }"
+                <div class="pmSection" data-win-control="WinJS.UI.PivotItem" data-win-res="{ winControl: {'header': 'Messages.title'} }"
                      data-win-options="{ onheaderinvoked: select('.pagecontrol').winControl.messageHeaderNavigate }">
                     <div class="smallListIconTextTemplate" id="pmItem" data-win-control="WinJS.Binding.Template">
                         <div class="smallListIconTextItem">
-                            <img src="#" data-win-bind="src: sender.image; alt: subject" class="smallListIconTextItem-Image pic_user"/>
+                            <img src="#" data-win-bind="src: sender.image; alt: subject" class="smallListIconTextItem-Image pic_user" />
                             <div class="smallListIconTextItem-Detail">
                                 <h4 data-win-bind="textContent: subject"></h4>
                                 <h6 data-win-bind="textContent: sender.name"></h6>
