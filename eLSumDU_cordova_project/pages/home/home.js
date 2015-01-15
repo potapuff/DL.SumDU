@@ -14,7 +14,8 @@
             .then(function () { DL.Messages.messages });
         },
         processed: function (element) {
-            return WinJS.Resources.processAll()
+            WinJS.Binding.processAll();
+            WinJS.Resources.processAll();
         },
 
         // This function is called whenever a user navigates to this page. It

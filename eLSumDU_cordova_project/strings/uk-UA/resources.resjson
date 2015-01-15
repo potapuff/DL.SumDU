@@ -14,6 +14,7 @@
 	"Login.password": "Пароль",
 	"Login.login": "Логін",
 	"Login.auto": "автоматичний вхід",
-	"Login.submit":"Війти!"
+	"Login.submit":"Війти!",
+    "Login.logout":"logout"
 
 }

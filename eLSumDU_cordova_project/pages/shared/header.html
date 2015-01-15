@@ -7,8 +7,13 @@
     <header aria-label="Header content" role="banner">
         <button class="backbutton" data-win-control="WinJS.UI.BackButton"></button>
         <h1 class="titlearea win-type-ellipsis">
-            <span class="pagetitle"></span>
+             <span class="pagetitle"></span>
         </h1>
+        <div class="userarea">
+          <img data-win-bind="src: DL.Users.currentUser.profile.image; alt:DL.Users.currentUser.login" class="pic_user current_user_avatar" />
+          <h4 data-win-bind="textContent: DL.Users.currentUser.profile.name"></h4>
+          <a onclick="" data-win-res="{textContent: 'Login.logout'}"></a>
+        </div>
     </header>
 </body>
 </html>

@@ -27,7 +27,6 @@
             WinJS.Promise.as(
                 {
                     success: function (response) {
-                        console.log(response);
                         document.getElementById('loginButton').disabled = false;
                         document.getElementById('progressRing').style.display = 'none';
                         if (DL.Users.currentUser.authentificated) {

@@ -3,6 +3,14 @@
 
     var app = WinJS.app;
 
+    //TODO remane url to api_url
+    WinJS.Namespace.define("DL", {
+        url: "http://dl.sumdu.edu.ua/api/v1/",
+        site: "dl.sumdu.edu.ua"
+    });
+
+//-------------------------------------------------------------------------------------------------
+
     function processPage(_url) {
         console.log(_url);
         var url = document.createElement('a');
@@ -80,22 +88,21 @@
         navigate: textbookClickEvent,
     });
 
-    //TODO remane url to api_url
-    WinJS.Namespace.define("DL", {
-        url: "http://dl.sumdu.edu.ua/api/v1/",
-        site: "dl.sumdu.edu.ua"
-    });
+//-------------------------------------------------------------------------------------------------
 
     function currentUser() {
         var user = DL.Users._currentUser || getCacheData('current_user', 60 * 60 * 24 * 7 * 3);
         if (user && user.auto_login) {
-            cacheData('current_user', {login:user.login, password:user.password,auto_login:user.auto_login});
+            cacheData('current_user', { login: user.login, password: user.password, auto_login: user.auto_login });
+            DL.Users._currentUser = user;
         }
         return user;
     }
 
     function doLogout() {
-         //TODO implemet
+        DL.Users._currentUser = {}
+        clearCache('current_user');
+        return WinJS.Navigation.navigate('./pages/users/loginPage.html', {});
     }
 
     function doAuth(options) {
@@ -108,15 +115,17 @@
           .then(
           function (response) {
               DL.Users.currentUser.authentificated = true;
+              DL.Users.currentUser.profile = DL.Users.byLogin(DL.Users.currentUser.login);
               DL.Users.currentUser.attempts = 0;
               if (options.success) {
                   options.success(response);
               }
           },
           function (error) {
-              var user = DL.Users.currentUser;
+              var user = DL.Users._currentUser;
               if (user) {
                   user.attempts = (user.attempts || 0) + 1;
+                  DL.Users.byLogin(DL.Users.currentUser.login);
               }
               if (options.error) {
                   options.error(error);
@@ -131,11 +140,121 @@
           );
     }
 
+    function initUsers() {
+        //TODO load from cache if possible
+        DL.Users._users = new WinJS.Binding.List();
+        DL.Users._users_by_id = DL.Users._users.createGrouped(
+                    function (x) { return x.id },
+                    function (x) { return {} },
+                    function (str1, str2) { return str1 < str2 ? -1 : str1 > str2; }
+        );
+        DL.Users._users_by_login = DL.Users._users.createGrouped(
+                    function (x) { return x.login },
+                    function (x) { return {} },
+                    function (str1, str2) { return str1 < str2 ? -1 : str1 > str2; }
+        );
+    }
+
+
+    var noOne = { id: -1, login: 'UNKNOWN', name: 'UNKNOWN', image: './images/users/default.png' };
+
+    function processingUserStub(user_id) {
+        return WinJS.Binding.as({ name: 'processing...', image: './images/users/processing.gif', id: user_id });
+    }
+
+    function cacheUsers() {
+        //TODO add caching
+    }
+
+    var _user_by_login_temp_holder = {};
+
+    function getUserByLogin(login) {
+        if (typeof login == 'undefined') {
+            return noOne;
+        }
+        if (!DL.Users._users) {
+            initUsers();
+        }
+        var id = DL.Users._users_by_login.groups.getItemFromKey(login)
+        if (id) {
+            return DL.Users._users_by_id.getAt(id.firstItemIndexHint);
+        }
+        if (_user_by_login_temp_holder[login]) {
+            return _user_by_login_temp_holder[login];
+        }
+        var user = processingUserStub(-1);
+        user.login = login;
+        _user_by_login_temp_holder[login] = user;
+        var url = DL.url + "party/by_login/" + login;
+        WinJS.xhr({ url: url }).then(
+            function (response) {
+                var data = JSON.parse(response.responseText).data;
+                var id = DL.Users._users_by_id.groups.getItemFromKey(data.id);
+                var user;
+                if (id) {
+                    user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
+                } else {
+                    user = _user_by_login_temp_holder[data.login];
+                    extend(user, data);
+                    DL.Users._users_by_id.push(user);
+                    DL.Users._users_by_id.notifyReload();
+                    cacheUsers();
+                }
+                delete _user_by_login_temp_holder[data.login];
+                return user;
+            },
+                function (error) {
+                    console.log('error:' + error.responseText);
+                    return noOne;
+                },
+                function (progress) { }
+        );
+        return user;
+    }
+
+
+    function getUserById(user_id) {
+        if (typeof user_id == 'undefined') {
+            return noOne;
+        }
+        if (!DL.Users._users) {
+            initUsers();
+        }
+        var id = DL.Users._users_by_id.groups.getItemFromKey(user_id);
+        if (id) {
+            return DL.Users._users_by_id.getAt(id.firstItemIndexHint);
+        }
+        var user = processingUserStub(user_id);
+        DL.Users._users.push(user);
+        var url = DL.url + "party/by_id/" + user_id;
+        WinJS.xhr({ url: url }).then(
+            function (response) {
+                var data = JSON.parse(response.responseText).data;
+                var id = DL.Users._users_by_id.groups.getItemFromKey(data.id);
+                var user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
+                extend(user, data);
+                DL.Users._users_by_id.notifyReload();
+                cacheUsers();
+                return user;
+            },
+                function (error) {
+                    console.log('error:' + error.responseText);
+                    return noOne;
+                },
+                function (progress) { }
+        );
+        return user;
+    }
+
     WinJS.Namespace.define("DL.Users", {
+        byId: getUserById,
+        byLogin: getUserByLogin,
         currentUser: { get: currentUser },
         doAuth: doAuth,
         doLogout: doLogout
     });
+
+//-------------------------------------------------------------------------------------------------
 
     function getCourses() {
         var courses = DL.Courses._courses;
@@ -189,7 +308,7 @@
         courses: { get: getCourses },
         grouped_courses: {get: getGroupedCourses}
     });
-
+//-------------------------------------------------------------------------------------------------
     function getPm() {
         var pm = DL.Messages._messages;
         if (!pm) {
@@ -252,72 +371,6 @@
 
 //-------------------------------------------------------------------------------------------------
 
-    function initUsers() {
-        //TODO load from cache if possible
-        DL.Users._users = new WinJS.Binding.List();
-        DL.Users._users_by_id = DL.Users._users.createGrouped(
-                    function (x) { return x.id },
-                    function (x) { return {} },
-                    function (str1, str2) { return str1 < str2 ? -1 : str1 > str2; }
-        );
-        DL.Users._users_by_login = DL.Users._users.createGrouped(
-                    function (x) { return x.login },
-                    function (x) { return {} },
-                    function (str1, str2) { return str1 < str2 ? -1 : str1 > str2; }
-        );
-    }
-
-
-    var noOne = { id: -1, login: 'UNKNOWN', name: 'UNKNOWN', image: './images/users/default.png' };
-
-    function processingUserStub(user_id) {
-        return WinJS.Binding.as({ name: 'processing...', image: './images/users/processing.gif', id: user_id });
-    }
-
-    function cacheUsers() {
-        //TODO add caching
-    }
-
-    function getUserById(user_id) {
-        if (typeof user_id == 'undefined') {
-            return noOne;
-        }
-        if (!DL.Users._users) {
-            initUsers();
-        }
-        var id = DL.Users._users_by_id.groups.getItemFromKey(user_id);
-        var user;
-        if (id) {
-            user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
-        } else {
-            user = processingUserStub(user_id);
-            DL.Users._users.push(user);
-            var url = DL.url + "party/by_id/" + user_id;
-            WinJS.xhr({ url: url }).then(
-              function (response) {
-                var data = JSON.parse(response.responseText).data;
-                var id = DL.Users._users_by_id.groups.getItemFromKey(data.id);
-                var user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
-                extend(user, data);
-                DL.Users._users_by_id.notifyReload();
-                cacheUsers();
-                return user;
-                },
-                function (error) {
-                    console.log('error:' + error.responseText);
-                    return noOne;
-                },
-                function (progress) { }
-            );
-        }
-        return user;
-    }
-
-    WinJS.Namespace.define("DL.Users", {
-        byId: getUserById,
-    });
-
-    //------------------------------------------
 
     function clearCache(key) {
         window.localStorage[key] = null;
