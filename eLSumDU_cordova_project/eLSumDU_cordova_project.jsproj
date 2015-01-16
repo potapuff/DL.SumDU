@@ -116,6 +116,8 @@
     <Content Include="images\courses\default.png" />
     <Content Include="images\users\default.png" />
     <Content Include="images\users\processing.gif" />
+    <Content Include="merges\windows\pages\home\home.html" />
+    <Content Include="merges\windows\pages\shared\header.html" />
     <Content Include="pages\courses\show.html" />
     <Content Include="pages\courses\show.js" />
     <Content Include="pages\messages\index.css" />

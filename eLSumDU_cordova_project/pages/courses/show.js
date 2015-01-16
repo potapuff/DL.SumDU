@@ -11,7 +11,9 @@
 
     WinJS.UI.Pages.define("./pages/courses/show.html", {
         processed: function (element, options) {
-            WinJS.Binding.processAll(element, this);
+            element.querySelector("header[role=banner] .pagetitle").textContent = this.title;
+
+            WinJS.Binding.processAll(element,this);
             WinJS.UI.processAll(element).then(function () {
                 for (var i in options.Course.tutors) {
                     var tutor = options.Course.tutors[i];
@@ -33,6 +35,8 @@
 
         init: function (element, options) {
             this.Course = options.Course;
+            this.DL = DL;
+            this.title = (options && options.title) || WinJS.Resources.getString('Messages.title').value;
         },
         unload: function () {
             // TODO: Respond to navigations away from this page.

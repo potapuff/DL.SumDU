@@ -9,7 +9,7 @@
             options = options || {};
             var user = DL.Users.currentUser;
             if (user) {
-                document.querySelector('#login').value = user.login;
+                document.querySelector('#login').value = user.login || '';
                 if (user.auto_login) {
                     document.querySelector('#auto_login').checked = 'checked';
                 }
@@ -21,7 +21,7 @@
             var user =  DL.Users.currentUser || {}
             user.login = document.querySelector('#login').value;
             user.password = document.querySelector('#password').value;
-            user.auto_login = document.querySelector('#auto_login').checked == 'checked';
+            user.auto_login = document.querySelector('#auto_login').value == 'on';
             DL.Users._currentUser = user;
             DL.Users.currentUser; //Renew cache data
             WinJS.Promise.as(

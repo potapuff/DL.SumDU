@@ -13,6 +13,8 @@
         _items: DL.Messages.boxes,
 
         processed: function (element, options) {
+            element.querySelector("header[role=banner] .pagetitle").textContent = this.title;
+
             options = options || {};
             if (options.mail) {
                 _set_mail_params(options.mail, current_mail);
@@ -40,18 +42,19 @@
             }
             //TODO if mail is set - open tab for this mail
             pivot.items = pivotItems;
-            WinJS.Binding.processAll(element, this);
+            WinJS.Binding.processAll(element,this);
             WinJS.Resources.processAll(element);
         },
 
         // This function is called to initialize the page.
         init: function (element, options) {
             this.current_mail = current_mail;
+            this.title = (options && options.title) || WinJS.Resources.getString('Messages.title').value;
+            this.DL = DL;
         },
 
         // This function is called whenever a user navigates to this page.
         ready: function (element, options) {
-            element.querySelector("header[role=banner] .pagetitle").textContent = options.title || WinJS.Resources.getString('Messages.title').value;
         },
 
         unload: function () {

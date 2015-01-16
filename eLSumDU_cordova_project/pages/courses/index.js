@@ -8,6 +8,8 @@
         _items: DL.Courses.grouped_courses,
 
         processed: function (element) {
+            element.querySelector("header[role=banner] .pagetitle").textContent = this.title;
+
             var pivot = document.querySelector('.course_pivot').winControl;
             var pivotItems = new WinJS.Binding.List();
             var Groups = this._items;
@@ -29,17 +31,17 @@
                 pivotItems.push(item);
             }
             pivot.items = pivotItems;
-            return WinJS.Resources.processAll(element);
+            WinJS.Binding.processAll(element);
+            WinJS.Resources.processAll(element);
         },
 
         // This function is called to initialize the page.
         init: function (element, options) {
+            this.title = (options && options.title) || WinJS.Resources.getString("App.title").value;
         },
 
         // This function is called whenever a user navigates to this page.
-        ready: function (element, options) {
-            element.querySelector("header[role=banner] .pagetitle").textContent = options.title;
-        },
+        ready: function (element, options) {},
 
         unload: function () {
             //this._items.dispose();

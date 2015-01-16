@@ -14,7 +14,7 @@
 
     .fragment header[role=banner] {
         /* Define a grid with columns for the back button and page title. */
-        -ms-grid-columns: 37px 83px 5fr 1fr;
+        -ms-grid-columns: 37px 83px 3fr 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
@@ -36,6 +36,7 @@
             }
        .fragment header[role=banner] .userarea {
             -ms-grid-column: 4;
+            -ms-grid-column-align: end;
         }
 
 
@@ -138,7 +139,13 @@
   min-height: 100%;
 }
 
-.current_user_avatar {
-    position:absolute;
-    float:left;
+
+.userarea {
+    margin-top:37px;
+    margin-right:37px;
+}
+
+.userarea .current_user_avatar {
+    position:relative;
+    float:right;
 }

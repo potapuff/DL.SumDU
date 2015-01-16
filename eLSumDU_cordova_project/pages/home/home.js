@@ -8,12 +8,12 @@
 
     WinJS.UI.Pages.define("./pages/home/home.html", {
 
-        init: function(element, options){
-            return WinJS.Promise.as()
-            .then(function () { DL.Courses.courses })
-            .then(function () { DL.Messages.messages });
+        init: function (element, options) {
+            this.title = (options && options.title) || WinJS.Resources.getString("App.title").value;
         },
+
         processed: function (element) {
+            element.querySelector("header[role=banner] .pagetitle").textContent = this.title;
             WinJS.Binding.processAll();
             WinJS.Resources.processAll();
         },
@@ -22,7 +22,6 @@
         // populates the page elements with the app's data.
         ready: function (element, options) {
             var hub = element.querySelector(".hub").winControl;
-            element.querySelector("header[role=banner] .pagetitle").textContent = WinJS.Resources.getString("App.title").value;
 
             hub.onheaderinvoked = function (args) {
                 args.detail.section.onheaderinvoked(args);

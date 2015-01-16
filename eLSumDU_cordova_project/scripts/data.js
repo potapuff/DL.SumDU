@@ -3,10 +3,18 @@
 
     var app = WinJS.app;
 
+    function prefetchData() {
+        return WinJS.Promise.as()
+          .then(initUsers)
+          .then(function () { DL.Courses.courses })
+          .then(function () { DL.Messages.messages })
+    }
+
     //TODO remane url to api_url
     WinJS.Namespace.define("DL", {
         url: "http://dl.sumdu.edu.ua/api/v1/",
-        site: "dl.sumdu.edu.ua"
+        site: "dl.sumdu.edu.ua",
+        prefetchData: prefetchData
     });
 
 //-------------------------------------------------------------------------------------------------
@@ -117,6 +125,7 @@
               DL.Users.currentUser.authentificated = true;
               DL.Users.currentUser.profile = DL.Users.byLogin(DL.Users.currentUser.login);
               DL.Users.currentUser.attempts = 0;
+              DL.prefetchData;
               if (options.success) {
                   options.success(response);
               }
@@ -143,6 +152,12 @@
     function initUsers() {
         //TODO load from cache if possible
         DL.Users._users = new WinJS.Binding.List();
+        var users = getCacheData('users', 60 * 60 * 24 * 7 * 3) || [];
+        for (var i = 0; i < users.length; i++) {
+            if (users[i]) {
+                DL.Users._users.push(users[i]);
+            }
+        }
         DL.Users._users_by_id = DL.Users._users.createGrouped(
                     function (x) { return x.id },
                     function (x) { return {} },
@@ -162,8 +177,13 @@
         return WinJS.Binding.as({ name: 'processing...', image: './images/users/processing.gif', id: user_id });
     }
 
-    function cacheUsers() {
-        //TODO add caching
+    function cacheUsers(user) {
+        if (user.id < 0) {
+            return;
+        }
+        var users = getCacheData('users', 60 * 60 * 24 * 7 * 3) || []
+        users[user.id] = user;
+        cacheData('users',users);
     }
 
     var _user_by_login_temp_holder = {};
@@ -177,7 +197,7 @@
         }
         var id = DL.Users._users_by_login.groups.getItemFromKey(login)
         if (id) {
-            return DL.Users._users_by_id.getAt(id.firstItemIndexHint);
+            return DL.Users._users_by_login.getAt(id.firstItemIndexHint);
         }
         if (_user_by_login_temp_holder[login]) {
             return _user_by_login_temp_holder[login];
@@ -190,15 +210,13 @@
             function (response) {
                 var data = JSON.parse(response.responseText).data;
                 var id = DL.Users._users_by_id.groups.getItemFromKey(data.id);
-                var user;
-                if (id) {
-                    user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
-                } else {
-                    user = _user_by_login_temp_holder[data.login];
-                    extend(user, data);
+                var user = _user_by_login_temp_holder[data.login];
+                extend(user, data);
+                //user.notifyReload();
+                if (!id) {
                     DL.Users._users_by_id.push(user);
                     DL.Users._users_by_id.notifyReload();
-                    cacheUsers();
+                    cacheUsers(data);
                 }
                 delete _user_by_login_temp_holder[data.login];
                 return user;
@@ -234,7 +252,7 @@
                 var user = DL.Users._users_by_id.getAt(id.firstItemIndexHint);
                 extend(user, data);
                 DL.Users._users_by_id.notifyReload();
-                cacheUsers();
+                cacheUsers(data);
                 return user;
             },
                 function (error) {
@@ -353,7 +371,7 @@
     }
 
     function getUnread(){
-        var pms = DL.Messages._unread || (getPM() && DL.Messages._unread);
+        var pms = DL.Messages._unread || (getPm() && DL.Messages._unread);
         return pms;
     }
 
@@ -373,7 +391,8 @@
 
 
     function clearCache(key) {
-        window.localStorage[key] = null;
+        window.localStorage[key] = undefined;
+        delete window.localStorage[key];
     }
 
     function cacheData(key, data) {

@@ -44,7 +44,7 @@
               var location = nav.location || Application.navigator.home;
               var user = DL.Users.currentUser;
               var success = function (arg) {
-                  return nav.navigate(location, nav.state);
+                  return  nav.navigate(location, nav.state);
               }
               var error = function (arg) {
                   return nav.navigate('./pages/users/loginPage.html', arg)
