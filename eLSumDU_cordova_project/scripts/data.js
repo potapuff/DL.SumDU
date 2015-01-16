@@ -122,6 +122,8 @@
         return WinJS.xhr({ url: DL.url + "party/login?login=" + user.login + "&password=" + user.password })
           .then(
           function (response) {
+              console.log("auth ok");
+              console.log(response);
               DL.Users.currentUser.authentificated = true;
               DL.Users.currentUser.profile = DL.Users.byLogin(DL.Users.currentUser.login);
               DL.Users.currentUser.attempts = 0;
@@ -131,6 +133,8 @@
               }
           },
           function (error) {
+              console.log("auth error"+error.responseText);
+              console.log(error);
               var user = DL.Users._currentUser;
               if (user) {
                   user.attempts = (user.attempts || 0) + 1;
@@ -141,7 +145,8 @@
               }
           },
           function (progress) {
-              //console.log('Auth courses process...' + progress)
+              console.log('Auth courses process...');
+              console.log(progress);
               if (options.progress) {
                   options.progress(progress);
               }
