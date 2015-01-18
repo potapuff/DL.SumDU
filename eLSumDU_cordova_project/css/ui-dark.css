@@ -1,4 +1,4 @@
-﻿/* Copyright (c) Microsoft Open Technologies, Inc.  All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information. */
+/* Copyright (c) Microsoft Open Technologies, Inc.  All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information. */
 @keyframes WinJS-node-inserted {
   from {
     outline-color: #000;
@@ -415,38 +415,6 @@
     -webkit-transform: none;
   }
 }
-@-webkit-keyframes WinJS-selectionMode-shiftRight {
-  from {
-    -webkit-transform: none;
-  }
-  to {
-    -webkit-transform: translateX(40px);
-  }
-}
-@-webkit-keyframes WinJS-selectionMode-shiftRight-rtl {
-  from {
-    -webkit-transform: none;
-  }
-  to {
-    -webkit-transform: translateX(-40px);
-  }
-}
-@-webkit-keyframes WinJS-selectionMode-shiftLeft {
-  from {
-    -webkit-transform: translateX(40px);
-  }
-  to {
-    -webkit-transform: none;
-  }
-}
-@-webkit-keyframes WinJS-selectionMode-shiftLeft-rtl {
-  from {
-    -webkit-transform: translateX(40px);
-  }
-  to {
-    -webkit-transform: none;
-  }
-}
 @font-face {
   font-family: "Segoe UI Command";
   src: local("Segoe UI Symbol");
@@ -837,6 +805,7 @@ textarea,
   -ms-user-select: element;
   border-style: solid;
   border-width: 2px;
+  border-radius: 0;
   margin: 8px 0px;
   width: 296px;
   min-width: 64px;
@@ -1009,7 +978,6 @@ select {
   max-width: 368px;
   min-height: 32px;
   margin: 8px 0;
-  outline: 0;
   border-style: solid;
   border-width: 2px;
   background-clip: border-box;
@@ -1446,15 +1414,15 @@ html.win-hoverable .win-itemcontainer.win-itembox.win-selected:hover::before {
   touch-action: pan-x pan-y pinch-zoom;
   overflow: hidden;
 }
-.win-listview .win-horizontal .win-listheadercontainer,
-.win-listview .win-horizontal .win-listfootercontainer {
+.win-listview .win-horizontal .win-headercontainer,
+.win-listview .win-horizontal .win-footercontainer {
   height: 100%;
   display: inline-block;
   overflow: hidden;
   white-space: normal;
 }
-.win-listview .win-vertical .win-listheadercontainer,
-.win-listview .win-vertical .win-listfootercontainer {
+.win-listview .win-vertical .win-headercontainer,
+.win-listview .win-vertical .win-footercontainer {
   width: 100%;
   display: block;
   overflow: hidden;
@@ -1588,24 +1556,28 @@ html.win-hoverable .win-itemcontainer.win-itembox.win-selected:hover::before {
   left: 2px;
 }
 .win-listview.win-selectionstylefilled .win-surface.win-selectionmode .win-item {
-  animation: WinJS-selectionMode-shiftRight 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
-  -webkit-animation: WinJS-selectionMode-shiftRight 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  transition: transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
   transform: translate(40px, 0px);
+  -webkit-transform: translate(40px, 0px);
 }
 .win-listview.win-rtl.win-selectionstylefilled .win-surface.win-selectionmode .win-item {
-  animation: WinJS-selectionMode-shiftRight-rtl 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
-  -webkit-animation: WinJS-selectionMode-shiftRight-rtl 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  transition: transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
   transform: translate(-40px, 0px);
+  -webkit-transform: translate(-40px, 0px);
 }
 .win-listview.win-selectionstylefilled .win-surface.win-hidingselectionmode .win-item {
-  animation: WinJS-selectionMode-shiftLeft 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
-  -webkit-animation: WinJS-selectionMode-shiftLeft 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  transition: transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
   transform: none;
+  -webkit-transform: none;
 }
 .win-listview.win-rtl.win-selectionstylefilled .win-surface.win-hideselectionmode .win-item {
-  animation: WinJS-selectionMode-shiftLeft-rtl 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
-  -webkit-animation: WinJS-selectionMode-shiftLeft-rtl 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  transition: transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
+  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.17, 0.79, 0.215, 1.0025);
   transform: none;
+  -webkit-transform: none;
 }
 .win-listview.win-selectionstylefilled .win-surface.win-selectionmode .win-itembox::after {
   left: 12px;
@@ -3722,6 +3694,7 @@ AppBar menu layout
   position: absolute;
   right: 0;
   top: 0;
+  overflow: hidden;
 }
 .win-menulayout .win-appbar-menu:lang(ar),
 .win-menulayout .win-appbar-menu:lang(dv),
@@ -3739,10 +3712,7 @@ AppBar menu layout
   left: 0;
   right: auto;
 }
-.win-menulayout .win-appbar-toolbarcontainer {
-  overflow: hidden;
-}
-.win-menulayout.win-bottom .win-appbar-toolbarcontainer {
+.win-menulayout.win-bottom .win-appbar-menu {
   overflow: visible;
 }
 .win-menulayout .win-toolbar {
@@ -3892,6 +3862,7 @@ Menu commands.
   -webkit-align-items: center;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 .win-menu button.win-command .win-menucommand-liner .win-toggleicon,
 .win-menu button.win-command .win-menucommand-liner .win-flyouticon {
@@ -4695,6 +4666,10 @@ Hide clear button in search box control.
 }
 .win-searchbox-button.win-searchbox-button:before {
   content: "\E094";
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  line-height: 100%;
 }
 @media (-ms-high-contrast) {
   .win-searchbox-button {
@@ -5096,8 +5071,6 @@ Hide clear button in search box control.
   display: flex;
 }
 .win-contentdialog .win-contentdialog-backgroundoverlay {
-  z-index: -1;
-  /* Put backgroundoverlay behind the dialog's body */
   position: absolute;
   top: 0;
   left: 0;
@@ -5114,6 +5087,8 @@ Hide clear button in search box control.
   -ms-flex: 1 1 auto;
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
+  z-index: 1;
+  /* Put the dialog's body above the backgroundoverlay */
   outline-style: solid;
   outline-width: 1px;
   box-sizing: border-box;
@@ -5233,7 +5208,9 @@ Hide clear button in search box control.
   flex-direction: column;
 }
 .win-splitview .win-splitview-panewrapper {
+  position: relative;
   z-index: 1;
+  outline: none;
   -ms-flex: 0 0 auto;
   -webkit-flex: 0 0 auto;
   flex: 0 0 auto;
@@ -5925,13 +5902,12 @@ button[aria-checked=true]:enabled:hover:active .win-commandimage.win-commandimag
 button[aria-checked=true]:-ms-keyboard-active .win-commandimage {
   color: #ffffff;
 }
-button[aria-checked=true].win-command:after {
+button[aria-checked=true].win-command:before {
   position: absolute;
   height: 100%;
   width: 100%;
   background-color: #0078d7;
   opacity: 0.6;
-  z-index: -1;
   box-sizing: content-box;
   content: "";
   /* We want this pseudo element to cover the border of its parent. */
@@ -5963,8 +5939,6 @@ button.win-command:disabled:active .win-label {
 }
 .win-appbar.win-menulayout .win-appbar-menu,
 .win-appbar.win-menulayout .win-appbar-menu,
-.win-appbar.win-menulayout .win-appbar-toolbarcontainer,
-.win-appbar.win-menulayout .win-appbar-toolbarcontainer,
 .win-appbar.win-menulayout .win-toolbar,
 .win-appbar.win-menulayout .win-toolbar {
   background-color: inherit;
@@ -6039,15 +6013,14 @@ button.win-command:disabled:active .win-label {
   background-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
 }
-.win-menu button.win-command-flyout-activated:after,
-.win-menu button.win-command-flyout-activated:after {
+.win-menu button.win-command-flyout-activated:before,
+.win-menu button.win-command-flyout-activated:before {
   position: absolute;
   height: 100%;
   width: 100%;
   background-color: #0078d7;
   opacity: 0.6;
   content: "";
-  z-index: -1;
   box-sizing: content-box;
   /* We want this pseudo element to cover the border of its parent. */
   /* Put a 1px border on this element to make it larger and then set its top/left to -1px.*/
@@ -6055,8 +6028,8 @@ button.win-command:disabled:active .win-label {
   top: -1px;
   left: -1px;
 }
-.win-menu button[aria-checked=true].win-command:after,
-.win-menu button[aria-checked=true].win-command:after {
+.win-menu button[aria-checked=true].win-command:before,
+.win-menu button[aria-checked=true].win-command:before {
   background-color: transparent;
   border-color: transparent;
 }
@@ -6277,10 +6250,10 @@ html.win-hoverable .win-menu button.win-command:enabled:hover {
 html.win-hoverable button[aria-checked=true].win-command:hover {
   background-color: transparent;
 }
-html.win-hoverable button:enabled[aria-checked=true].win-command:hover:after {
+html.win-hoverable button:enabled[aria-checked=true].win-command:hover:before {
   opacity: 0.8;
 }
-html.win-hoverable button:enabled[aria-checked=true].win-command:hover:active:after {
+html.win-hoverable button:enabled[aria-checked=true].win-command:hover:active:before {
   opacity: 0.9;
 }
 html.win-hoverable.win-toolbar button.win-toolbar-overflowbutton:hover,
@@ -6898,13 +6871,12 @@ html.win-hoverable .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-
 .win-ui-light button[aria-checked=true]:-ms-keyboard-active .win-commandimage {
   color: #000000;
 }
-.win-ui-light button[aria-checked=true].win-command:after {
+.win-ui-light button[aria-checked=true].win-command:before {
   position: absolute;
   height: 100%;
   width: 100%;
   background-color: #0078d7;
   opacity: 0.4;
-  z-index: -1;
   box-sizing: content-box;
   content: "";
   /* We want this pseudo element to cover the border of its parent. */
@@ -6936,8 +6908,6 @@ html.win-hoverable .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-
 }
 .win-ui-light.win-appbar.win-menulayout .win-appbar-menu,
 .win-ui-light .win-appbar.win-menulayout .win-appbar-menu,
-.win-ui-light.win-appbar.win-menulayout .win-appbar-toolbarcontainer,
-.win-ui-light .win-appbar.win-menulayout .win-appbar-toolbarcontainer,
 .win-ui-light.win-appbar.win-menulayout .win-toolbar,
 .win-ui-light .win-appbar.win-menulayout .win-toolbar {
   background-color: inherit;
@@ -7012,15 +6982,14 @@ html.win-hoverable .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-
   background-color: rgba(0, 0, 0, 0.2);
   color: #000000;
 }
-.win-ui-light.win-menu button.win-command-flyout-activated:after,
-.win-ui-light .win-menu button.win-command-flyout-activated:after {
+.win-ui-light.win-menu button.win-command-flyout-activated:before,
+.win-ui-light .win-menu button.win-command-flyout-activated:before {
   position: absolute;
   height: 100%;
   width: 100%;
   background-color: #0078d7;
   opacity: 0.4;
   content: "";
-  z-index: -1;
   box-sizing: content-box;
   /* We want this pseudo element to cover the border of its parent. */
   /* Put a 1px border on this element to make it larger and then set its top/left to -1px.*/
@@ -7028,8 +6997,8 @@ html.win-hoverable .win-navbarcommand-splitbutton.win-navbarcommand-splitbutton-
   top: -1px;
   left: -1px;
 }
-.win-ui-light.win-menu button[aria-checked=true].win-command:after,
-.win-ui-light .win-menu button[aria-checked=true].win-command:after {
+.win-ui-light.win-menu button[aria-checked=true].win-command:before,
+.win-ui-light .win-menu button[aria-checked=true].win-command:before {
   background-color: transparent;
   border-color: transparent;
 }
@@ -7250,10 +7219,10 @@ html.win-hoverable .win-ui-light .win-menu button.win-command:enabled:hover {
 html.win-hoverable .win-ui-light button[aria-checked=true].win-command:hover {
   background-color: transparent;
 }
-html.win-hoverable .win-ui-light button:enabled[aria-checked=true].win-command:hover:after {
+html.win-hoverable .win-ui-light button:enabled[aria-checked=true].win-command:hover:before {
   opacity: 0.6;
 }
-html.win-hoverable .win-ui-light button:enabled[aria-checked=true].win-command:hover:active:after {
+html.win-hoverable .win-ui-light button:enabled[aria-checked=true].win-command:hover:active:before {
   opacity: 0.7;
 }
 html.win-hoverable .win-ui-light.win-toolbar button.win-toolbar-overflowbutton:hover,
@@ -7343,13 +7312,12 @@ html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcomman
   button[aria-checked=true]:-ms-keyboard-active .win-commandimage {
     color: ButtonFace;
   }
-  button[aria-checked=true].win-command:after {
+  button[aria-checked=true].win-command:before {
     position: absolute;
     height: 100%;
     width: 100%;
     background-color: ButtonText;
     opacity: 1;
-    z-index: -1;
     box-sizing: content-box;
     content: "";
     /* We want this pseudo element to cover the border of its parent. */
@@ -7381,8 +7349,6 @@ html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcomman
   }
   .win-appbar.win-menulayout .win-appbar-menu,
   .win-appbar.win-menulayout .win-appbar-menu,
-  .win-appbar.win-menulayout .win-appbar-toolbarcontainer,
-  .win-appbar.win-menulayout .win-appbar-toolbarcontainer,
   .win-appbar.win-menulayout .win-toolbar,
   .win-appbar.win-menulayout .win-toolbar {
     background-color: inherit;
@@ -7457,15 +7423,14 @@ html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcomman
     background-color: ButtonText;
     color: ButtonFace;
   }
-  .win-menu button.win-command-flyout-activated:after,
-  .win-menu button.win-command-flyout-activated:after {
+  .win-menu button.win-command-flyout-activated:before,
+  .win-menu button.win-command-flyout-activated:before {
     position: absolute;
     height: 100%;
     width: 100%;
     background-color: ButtonText;
     opacity: 0.6;
     content: "";
-    z-index: -1;
     box-sizing: content-box;
     /* We want this pseudo element to cover the border of its parent. */
     /* Put a 1px border on this element to make it larger and then set its top/left to -1px.*/
@@ -7473,8 +7438,8 @@ html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcomman
     top: -1px;
     left: -1px;
   }
-  .win-menu button[aria-checked=true].win-command:after,
-  .win-menu button[aria-checked=true].win-command:after {
+  .win-menu button[aria-checked=true].win-command:before,
+  .win-menu button[aria-checked=true].win-command:before {
     background-color: transparent;
     border-color: transparent;
   }
@@ -7562,10 +7527,10 @@ html.win-hoverable .win-ui-light .win-navbarcommand-splitbutton.win-navbarcomman
   html.win-hoverable button[aria-checked=true].win-command:hover {
     background-color: transparent;
   }
-  html.win-hoverable button:enabled[aria-checked=true].win-command:hover:after {
+  html.win-hoverable button:enabled[aria-checked=true].win-command:hover:before {
     opacity: 1;
   }
-  html.win-hoverable button:enabled[aria-checked=true].win-command:hover:active:after {
+  html.win-hoverable button:enabled[aria-checked=true].win-command:hover:active:before {
     opacity: 1;
   }
   html.win-hoverable.win-toolbar button.win-toolbar-overflowbutton:hover,

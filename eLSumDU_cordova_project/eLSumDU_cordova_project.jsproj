@@ -124,6 +124,7 @@
     <Content Include="pages\messages\index.html" />
     <Content Include="pages\messages\index.js" />
     <Content Include="pages\shared\header.html" />
+    <Content Include="res\native\windows\CordovaApp.pfx" />
     <Content Include="scripts\data.js" />
     <Content Include="scripts\safeHtmlPolyfill.js" />
     <Content Include="scripts\winjs\base.js" />
@@ -246,6 +247,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetPlatformIdentifier>MDD</TargetPlatformIdentifier>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <Target Name="EnsureBuildPrerequisites">
     <!-- These errors will trigger if building from inside Visual Studio and requirements could not be determined -->
