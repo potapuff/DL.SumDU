@@ -119,11 +119,11 @@
         if (!user) {
            return WinJS.Promise.as(options.error);
         }
-        return WinJS.xhr({ url: DL.url + "party/login?login=" + user.login + "&password=" + user.password })
+        return WinJS.xhr({
+            url: DL.url + "party/login?login="+user.login+"&password="+user.password
+        })
           .then(
           function (response) {
-              console.log("auth ok");
-              console.log(response);
               DL.Users.currentUser.authentificated = true;
               DL.Users.currentUser.profile = DL.Users.byLogin(DL.Users.currentUser.login);
               DL.Users.currentUser.attempts = 0;
@@ -155,7 +155,6 @@
     }
 
     function initUsers() {
-        //TODO load from cache if possible
         DL.Users._users = new WinJS.Binding.List();
         var users = getCacheData('users', 60 * 60 * 24 * 7 * 3) || [];
         for (var i = 0; i < users.length; i++) {
@@ -202,7 +201,8 @@
         }
         var id = DL.Users._users_by_login.groups.getItemFromKey(login)
         if (id) {
-            return DL.Users._users_by_login.getAt(id.firstItemIndexHint);
+            var user = DL.Users._users_by_login.getAt(id.firstItemIndexHint);
+            return WinJS.Binding.as(user);
         }
         if (_user_by_login_temp_holder[login]) {
             return _user_by_login_temp_holder[login];
@@ -217,7 +217,6 @@
                 var id = DL.Users._users_by_id.groups.getItemFromKey(data.id);
                 var user = _user_by_login_temp_holder[data.login];
                 extend(user, data);
-                //user.notifyReload();
                 if (!id) {
                     DL.Users._users_by_id.push(user);
                     DL.Users._users_by_id.notifyReload();
