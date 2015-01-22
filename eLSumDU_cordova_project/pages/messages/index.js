@@ -14,11 +14,10 @@
 
         processed: function (element, options) {
             element.querySelector("header[role=banner] .pagetitle").textContent = this.title;
-
             options = options || {};
-            if (options.mail) {
-                _set_mail_params(options.mail, current_mail);
-            }
+
+            var currentPivotList = 0;
+
             var pivot = element.querySelector('.mail_pivot').winControl;
             var pivotItems = new WinJS.Binding.List();
             var Groups = this._items;
@@ -35,13 +34,34 @@
                     layout: { type: WinJS.UI.ListLayout },
                     itemTemplate: element.querySelector('.mailItemTemplate'),
                     selectionMode: 'none',
-                    managedLV:true,
                     oniteminvoked: this._itemInvoked
                 });
-                pivotItems.push(item);
+                var idx = pivotItems.push(item);
+                if (group.key == 'I') {
+                    currentPivotList = idx;
+                }
             }
+            if (options.mail) {
+                _set_mail_params(options.mail, current_mail);
+                var user = options.mail.sender;
+                var item = new WinJS.UI.PivotItem(document.createElement("div"), {
+                    'header': 'Conversation with'+user.name
+                });
+                var list = new WinJS.UI.ListView(item.contentElement, {
+                    itemDataSource: this._items.createFiltered(function (obj) {
+                        return obj.sender_id == user.id || obj.recepient_id == user.id
+                    }).dataSource,
+                    layout: { type: WinJS.UI.ListLayout },
+                    itemTemplate: element.querySelector('.mailItemTemplate'),
+                    selectionMode: 'none',
+                    oniteminvoked: this._itemInvoked
+                });
+                currentPivotList = pivotItems.push(item);
+            }
+
             //TODO if mail is set - open tab for this mail
             pivot.items = pivotItems;
+            pivot.selectedIndex = currentPivotList-1;
             WinJS.Binding.processAll(element,this);
             WinJS.Resources.processAll(element);
         },

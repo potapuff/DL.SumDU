@@ -15,17 +15,17 @@
             <div class="hitTarget win-interactive"></div>
             <h3 class="author" data-win-bind="innerHTML: sender.name"></h3>
             <h5 class="time" data-win-bind="innerHTML: sent_date"></h5>
-            <h5 class="title win-pivot-slide1" data-win-bind="innerText: subject; style.color: titleColor"></h5>
+            <h5 class="title win-pivot-slide1" data-win-bind="innerText: subject DL.Formaters.Messages.tilteFormater"></h5>
             <h5 class="previewText win-pivot-slide2" data-win-bind="innerText: body"></h5>
         </div>
     </div>
     <div class="fragment">
         <div id="header" role="contentinfo" data-win-control="WinJS.UI.HtmlControl" data-win-options="{uri: './pages/shared/header.html'}"></div>
         <section aria-label="Main content" role="main" class="master-detail">
-            <div class="mail_pivot master" data-win-control="WinJS.UI.Pivot" data-win-options="{ selectedIndex: 1 }">
+            <div class="mail_pivot master" data-win-control="WinJS.UI.Pivot">
             </div>
             <div class="message detail">
-                <h3 data-win-bind="textContent: current_mail.subject"></h3>
+                <h3 data-win-bind="innerText: current_mail.subject DL.Formaters.Messages.tilteFormater"></h3>
                 <div data-win-bind="innerHTML: current_mail.body"></div>
             </div>
 

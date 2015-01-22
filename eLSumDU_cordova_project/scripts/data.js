@@ -390,6 +390,23 @@
         unread: { get: getUnread},
         boxes: {get: getGrouped}
     });
+//-------------------------------------------------------------------------------------------------
+// Converters
+
+    var styleMessageFormater = WinJS.Binding.converter(function (message) {
+        var user_id = _currentUser.profile.id;
+        return (message.sender_id == user_id) ? 'Income' : 'Outcome';
+    });
+
+    var tilteFormater = WinJS.Binding.converter(function (title) {
+        return title.replace(/<(.*?)>/g,'')
+    });
+
+
+    WinJS.Namespace.define("DL.Formaters.Messages", {
+        styleBySender: styleMessageFormater,
+        tilteFormater: tilteFormater
+    });
 
 //-------------------------------------------------------------------------------------------------
 

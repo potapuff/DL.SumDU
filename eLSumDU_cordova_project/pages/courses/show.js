@@ -25,7 +25,6 @@
 
         ready: function (element, options) {
             var course = options.Course;
-            element.querySelector("header[role=banner] .pagetitle").textContent = course.title;
             DL.Textbook.processPage(course.textbook);
             if (WinJS.Utilities.isPhone) {
                 document.getElementById("backButton").style.display = "none";

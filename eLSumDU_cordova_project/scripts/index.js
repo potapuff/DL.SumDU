@@ -36,6 +36,7 @@
         if (['uk-UA', 'en-US'].indexOf(lang) < 0 ) {
             lang = 'en-US';
         }
+        Windows.Globalization.ApplicationLanguages.primaryLanguageOverride = lang;
         var p = WinJS.xhr({ url: "./strings/" + lang + "/resources.resjson" })
           .then(function (response) {
               window.strings = JSON.parse(response.responseText);

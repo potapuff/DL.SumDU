@@ -2,9 +2,11 @@
     "use strict";
 
     var ControlConstructor = WinJS.UI.Pages.define("./pages/users/loginPage.html", {
-        // This function is called after the page control contents 
-        // have been loaded, controls have been activated, and 
-        // the resulting elements have been parented to the DOM. 
+
+        processed: function (element, options) {
+            WinJS.Resources.processAll(element);
+        },
+
         ready: function (element, options) {
             options = options || {};
             var user = DL.Users.currentUser;
@@ -39,7 +41,7 @@
                         console.log(response);
                         document.getElementById('loginButton').disabled = false;
                         document.getElementById('progressRing').style.display = 'none';
-                        document.querySelector(".error-message").innerHTML = response.error || response;
+                        document.querySelector(".error-message").innerHTML = (response && response.responseText) || '... Problem with connection';
                     },
                     progress: function (responce) {
                         document.getElementById('loginButton').disabled = true;

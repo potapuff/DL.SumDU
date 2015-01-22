@@ -90,6 +90,8 @@
 .smallListIconTextItem img.smallListIconTextItem-Image 
 {
     width: 60px;
+    min-width:60px;
+    max-width:60px;
     height: 60px;
     margin: 5px;
     margin-right:20px;
@@ -98,6 +100,8 @@
 .smallListIconTextItem .smallListIconTextItem-Detail
 {
     margin: 5px;
+    //overflow: hidden;
+    text-overflow:ellipsis;
 }
 
 .listLayoutTopHeaderTemplateRoot, .gridLayoutLeftHeaderTemplateRoot {
