@@ -38,7 +38,7 @@
                         }
                     },
                     error: function (response) {
-                        console.log(response);
+                        WinJS.debug('error'+response);
                         document.getElementById('loginButton').disabled = false;
                         document.getElementById('progressRing').style.display = 'none';
                         document.querySelector(".error-message").innerHTML = (response && response.responseText) || '... Problem with connection';

@@ -1,8 +1,20 @@
 ﻿(function () {
     "use strict";
+//------------------------------------------------------------------------------------------------
+    var production = false;
+    if (production) {
+        WinJS.info = console.log;
+        WinJS.debug = function () { }
+    } else {
+        WinJS.info = console.log;
+        WinJS.debug = console.log;
+    }
+
+//------------------------------------------------------------------------------------------------
 
     var app = WinJS.app;
 
+    // Start uploading data from server
     function prefetchData() {
         return WinJS.Promise.as()
           .then(initUsers)
@@ -12,15 +24,22 @@
 
     //TODO remane url to api_url
     WinJS.Namespace.define("DL", {
-        url: "http://dl.sumdu.edu.ua/api/v1/",
-        site: "dl.sumdu.edu.ua",
+        protocol: 'https:',
+        site: "dl.sumdu.edu.ua", //rename to HOST
+        pathname: "/api/v1/",
+        port: '',
+        url: { get: function () { return DL.protocol + '//' + DL.site + (DL.port ? (':' + DL.port) : '') + DL.pathname } },
         prefetchData: prefetchData
     });
 
 //-------------------------------------------------------------------------------------------------
 
+    //Fetch page from textbooks, process it and place in application
+    //TODO: fix url processing in FireFox
+    //TODO: fix processing content page - show as grid
+    //TODO: fix processing tasks - place into iframe 
     function processPage(_url) {
-        console.log(_url);
+        WinJS.debug('Process page:'+_url);
         var url = document.createElement('a');
         url.href = _url;
         var placeholder = document.querySelector(".courseHolder");
@@ -34,8 +53,7 @@
         return WinJS.xhr({ url: url.href })
                .then(
                   function (response) {
-                      console.log('start process');
-                      console.log(response);
+                      WinJS.debug('start process'+response);
                       var html = response.responseText;
                       var textbooks,ex;
                       try {
@@ -72,18 +90,16 @@
                       WinJS.Utilities.query('img', textbooks).forEach(function (obj, idx, arr) {
                           obj.src = obj.src.replace(base_url, normalized_doc_url + '/');
                       });
-                      console.log('before place')
                       WinJS.Utilities.setInnerHTMLUnsafe(placeholder, textbooks.getElementsByClassName('mainContent')[0].innerHTML);
-                      console.log('after place')
                       WinJS.Utilities.query('a', placeholder).forEach(function (obj, idx, arr) {
                           obj.addEventListener('click', DL.Textbook.navigate, false);
                       });
-                      console.log('touch img')
                       WinJS.Utilities.query('img', placeholder).forEach(function (obj, idx, arr) { obj.src = obj.src+'?renew';});
                   }, error, process
                   );
     }
 
+    //Acton on click any url in textbook
     var textbookClickEvent = function (event) {
         DL.Textbook.processPage(event.target.href);
         event.preventDefault();
