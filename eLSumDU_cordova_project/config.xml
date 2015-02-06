@@ -14,7 +14,7 @@
     <vs:platformSpecificWidget platformName="windows" id="DL.SumDU" version="0.1.0.1">
       <vs:name>DL.SumDU</vs:name>
       <vs:certFile>CordovaApp.pfx</vs:certFile>
-      <vs:packageOutputPath>C:\Users\Борис\Documents\Visual Studio 2015\Projects\eLSumDU_cordova_project\eLSumDU_cordova_project\AppPackages\</vs:packageOutputPath>
+      <vs:packageOutputPath>$(Solutiondir)\AppPackages\</vs:packageOutputPath>
     </vs:platformSpecificWidget>
   </vs:platformSpecificValues>
 </widget>
