@@ -41,7 +41,7 @@
                         WinJS.debug('error'+response);
                         document.getElementById('loginButton').disabled = false;
                         document.getElementById('progressRing').style.display = 'none';
-                        document.querySelector(".error-message").innerHTML = (response && response.responseText) || '... Problem with connection';
+                        document.querySelector(".error-message").innerHTML = ('<p>Wrong password or user name</p>') || '... Problem with connection';
                     },
                     progress: function (responce) {
                         document.getElementById('loginButton').disabled = true;

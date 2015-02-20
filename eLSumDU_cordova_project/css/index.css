@@ -1,4 +1,8 @@
-﻿#contenthost {
+﻿body {
+    background-color: #6DA3C7;
+    color:#025377;
+}
+#contenthost {
     height: 100%;
     width: 100%;
 }
@@ -19,32 +23,31 @@
         display: -ms-grid;
     }
 
-        .fragment header[role=banner] .win-navigation-backbutton {
-            -ms-grid-column: 2;
-            margin-top: 57px;
-            position: relative;
-            z-index: 1;
-        }
+.fragment header[role=banner] .win-navigation-backbutton {
+    -ms-grid-column: 2;
+    margin-top: 57px;
+    position: relative;
+    z-index: 1;
+}
 
-        .fragment header[role=banner] .titlearea {
-            -ms-grid-column: 3;
-            margin-top: 37px;
-        }
+.fragment header[role=banner] .titlearea {
+    -ms-grid-column: 3;
+    margin-top: 37px;
+}
 
-            .fragment header[role=banner] .titlearea .pagetitle {
-                width: calc(100% - 20px);
-            }
-       .fragment header[role=banner] .userarea {
-            -ms-grid-column: 4;
-            -ms-grid-column-align: end;
-        }
+.fragment header[role=banner] .titlearea .pagetitle {
+    width: calc(100% - 20px);
+}
 
+.fragment header[role=banner] .userarea {
+    -ms-grid-column: 4;
+    -ms-grid-column-align: end;
+}
 
-    .fragment section[role=main] {
-        -ms-grid-row: 2;
-        height: 100%;
-    }
-    
+.fragment section[role=main] {
+    -ms-grid-row: 2;
+    height: 100%;
+}
 
 .center-box {
   display: -webkit-box;
@@ -63,7 +66,6 @@
   -webkit-justify-content: center;
           justify-content: center;
 }
-
 
 .tiles_list .win-item {
         height: 229px;
@@ -116,7 +118,6 @@
     background: url(./../images/courses/default.png) no-repeat;
 }
 
-
 .master-detail {
     -ms-grid-columns: 1fr 2fr;
     -ms-grid-rows: 100%;
@@ -143,7 +144,6 @@
   min-height: 100%;
 }
 
-
 .userarea {
     margin-top:37px;
     margin-right:37px;
@@ -152,4 +152,57 @@
 .userarea .current_user_avatar {
     position:relative;
     float:right;
+}
+.prebox {
+    width:100%;
+    padding-top:10px;
+    background-color:#ECF0F1;
+    box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+}
+.loginbox {
+    margin-left:34%;
+
+}
+#login {
+    margin-left:30px;
+}
+#password {
+    margin-left:5px;
+}
+#password #login {
+    background-color:#D7F686;
+    color:#fff199;
+}
+#auto_login + label {
+    cursor:pointer;
+}
+#auto_login {
+    background-color:#025377;
+    border: 1px solid #B2C0CB;
+    vertical-align:middle;
+    cursor:pointer;
+}
+#loginButton {
+    color:#025377;
+    border-radius: 20px;
+    border: 1px solid #025377;
+    vertical-align:bottom;
+    margin-left:15px;
+    transform:rotate(180deg);
+}
+#loginButton:hover {
+    border:1px solid #09CAC7;
+    color:#09CAC7;
+}
+.loginbutton {
+    color:#025377;
+    border-radius: 20px;
+    border: 1px solid #025377;
+    transform:rotate(180deg);
+}
+.error-message {
+    font-size:14pt;
+    color:#09CAC7;
 }

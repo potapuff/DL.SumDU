@@ -5340,9 +5340,10 @@ body {
   background-color: #ffffff;
   color: #000000;
 }
+/* Text select color */
 ::selection {
-  background-color: #0078d7;
-  color: #fff;
+  background-color: #025377;
+  color: #09CAC7;
 }
 a {
   color: #0078d7;
@@ -5670,7 +5671,7 @@ textarea:focus,
 .win-textarea:focus {
   color: #000000;
   background-color: #ffffff;
-  border-color: #0078d7;
+  border-color: #09CAC7;
 }
 input::-ms-clear,
 input::-ms-reveal {
