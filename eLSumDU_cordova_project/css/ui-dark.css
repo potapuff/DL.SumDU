@@ -445,6 +445,8 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
+  word-wrap:break-word;
+  color: white;
 }
 .win-type-small {
   font-size: 15px;
@@ -1009,9 +1011,9 @@ option {
   line-height: 1.333;
 }
 progress {
-  width: 180px;
+/*  width: 180px;
   height: 4px;
-  -webkit-appearance: none;
+  -webkit-appearance: none;*/
 }
 progress:not(:indeterminate) {
   border-style: none;
@@ -1303,6 +1305,7 @@ h6 {
 }
 .win-listview .win-itemscontainer {
   overflow: hidden;
+  overflow-y:auto !important;
 }
 .win-listview .win-itemscontainer-padder {
   width: 0;
@@ -1342,8 +1345,7 @@ h6 {
 }
 .win-listview .win-itembox,
 .win-itemcontainer .win-itembox {
-  width: 100%;
-  height: 100%;
+  /*width: 100%;*/
 }
 .win-listview .win-item,
 .win-itemcontainer .win-item {
@@ -1638,7 +1640,7 @@ html.win-hoverable .win-itemcontainer.win-itembox.win-selected:hover::before {
   animation-name: -ms-ring;
 }
 .win-listview .win-itemsblock {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 .win-listview .win-surface.win-nocssgrid.win-gridlayout,
 .win-listview .win-horizontal .win-nocssgrid.win-listlayout,
@@ -1823,7 +1825,7 @@ html.win-hoverable .win-itemcontainer.win-itembox.win-selected:hover::before {
   height: 100%;
 }
 .win-listview .win-horizontal .win-gridlayout .win-uniformgridlayout .win-itemsblock {
-  height: 100%;
+  /*height: 100%;*/
 }
 .win-listview .win-horizontal .win-gridlayout .win-cellspanninggridlayout.win-itemscontainer.win-laidout {
   display: -ms-grid;
@@ -5717,7 +5719,8 @@ html.win-hoverable .win-itemcontainer.win-selectionstylefilled.win-container .wi
 }
 .win-listview .win-itembox,
 .win-itemcontainer .win-itembox {
-  background-color: #1d1d1d;
+  background-color: #4284D3;
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1);
 }
 .win-listview .win-container.win-backdrop {
   background-color: rgba(155, 155, 155, 0.23);

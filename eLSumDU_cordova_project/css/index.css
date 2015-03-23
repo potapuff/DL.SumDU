@@ -69,7 +69,7 @@
 
 .tiles_list .win-item {
         height: 229px;
-        width: 310px;
+        /*width: 310px;*/
     }
 
 .tiles_list .win-item img {
@@ -152,6 +152,10 @@
 .userarea .current_user_avatar {
     position:relative;
     float:right;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.1);
+}
+
 }
 .prebox {
     width:100%;
@@ -205,4 +209,28 @@
 .error-message {
     font-size:14pt;
     color:#09CAC7;
+}
+.determinate {
+	width: 100%;
+	height: 20px;
+	display: block;
+	-webkit-appearance: none;
+	border: none;
+}
+.determinate::-webkit-progress-bar {
+	background: black;
+	padding: 2px;
+}
+.determinate::-webkit-progress-value {
+	background-color: #00BFFF;
+}
+.scrolly {
+    overflow-y:scroll;
+}
+.win-container {
+    width:85% !important;
+    text-align:center;
+}
+.win-itemsblock {
+    /*width:80% !important;*/
 }
