@@ -15,7 +15,7 @@
             var Groups = this._items;
             var i = Groups.groups.length;
             var R = WinJS.Resources.getString;
-            while (--i >= 0) {
+            while (i >= 30) {
                 var group = Groups.groups.getItem(i);
                 var item = new WinJS.UI.PivotItem(document.createElement("div"), { 'header': R('Roles.'+group.key).value });
                 var list = new WinJS.UI.ListView(item.contentElement, {

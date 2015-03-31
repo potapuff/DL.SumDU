@@ -64,4 +64,7 @@
             // TODO: Respond to changes in layout.
         },
     });
+
+   /* var progressBar = document.getElementById("determinateProgressBar");
+    progressBar.value = value;*/
 })();

@@ -99,7 +99,7 @@
                   );
     }
 
-    //Acton on click any url in textbook
+    //Action on click any url in textbook
     var textbookClickEvent = function (event) {
         DL.Textbook.processPage(event.target.href);
         event.preventDefault();
@@ -308,7 +308,6 @@
         }
         return courses;
     }
-
     function getGroupedCourses(){
         var grouped = DL.Courses._courses_by_role;
         if (! grouped){
@@ -338,14 +337,65 @@
               },
               function (progress) {
                   //console.log('courses process...' + progress)
-              }
-              );
+              });
     }
 
     WinJS.Namespace.define("DL.Courses", {
         courses: { get: getCourses },
         grouped_courses: {get: getGroupedCourses}
     });
+
+
+    function getAchivment() {
+        var Achivment = DL.Achivment._Achivment;
+        if (!Achivment) {
+            Achivment = new WinJS.Binding.List();
+            DL.Achivment._Achivment = Achivment;
+            fetchAchivment();
+        }
+        return Achivment;
+    }
+
+    function fetchAchivment() {
+        var url = DL.url + "achievement/get";
+        console.log(url);
+        return WinJS.xhr({ url: url }).then(
+              function (response) {
+                  var data = JSON.parse(response.responseText).data;
+                  console.log(data);
+                  var Achivment = DL.Achivment.Achivment;
+                  for (var i in data) {
+                      Achivment.push(data[i]);
+                  }
+                  return Achivment;
+              },
+              function (error) {
+                  console.log('error:' + error.responseText);
+              },
+              function (progress) {
+                  //console.log('Achivment process...' + progress)
+              }
+              );
+    }
+
+   /* function getScore () {
+        var value = DL.Achivment.score;
+        return value;
+    }
+
+    function getMax() {
+        var score = DL.Achivment.max_score;
+        return max;
+    }*/
+
+    WinJS.Namespace.define("DL.Achivment", {
+        Achivment: { get: getAchivment },
+        /*score: { get: value },
+        max_score: { get: max }*/
+    });
+
+
+
 //-------------------------------------------------------------------------------------------------
     function getPm() {
         var pm = DL.Messages._messages;
