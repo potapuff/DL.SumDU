@@ -325,11 +325,10 @@
                   console.log(data);
                   var courses = DL.Courses.courses;
                   for (var i in data) {
-                      if (!data[i].logo) {
-                          data[i].logo = './images/courses/default.png'
-                      }
+                      data.score = scoreStub();
                       courses.push(data[i]);
                   }
+                  fetchScore();
                   return courses;
               },
               function (error) {
@@ -340,34 +339,28 @@
               });
     }
 
-    WinJS.Namespace.define("DL.Courses", {
-        courses: { get: getCourses },
-        grouped_courses: {get: getGroupedCourses}
-    });
-
-
-    function getAchivment() {
-        var Achivment = DL.Achivment._Achivment;
-        if (!Achivment) {
-            Achivment = new WinJS.Binding.List();
-            DL.Achivment._Achivment = Achivment;
-            fetchAchivment();
-        }
-        return Achivment;
+    function scoreStub() {
+        return {score:0, max_score:0}
     }
 
-    function fetchAchivment() {
+    function fetchScore() {
         var url = DL.url + "achievement/get";
         console.log(url);
         return WinJS.xhr({ url: url }).then(
               function (response) {
                   var data = JSON.parse(response.responseText).data;
                   console.log(data);
-                  var Achivment = DL.Achivment.Achivment;
-                  for (var i in data) {
-                      Achivment.push(data[i]);
+                  var extend_course = function(value, index, array){
+                      for (var i in this) {
+                          //TODO: связать курс и результаты
+                          if (value.course_id == this[i].course_id) {
+                              extend(value.score, this[i]);
+                              break;
+                          }
+                      }
                   }
-                  return Achivment;
+                  DL.Courses.course.forEach(extend_course, data);
+                  DL.Courses.course.notifyReload();
               },
               function (error) {
                   console.log('error:' + error.responseText);
@@ -378,23 +371,10 @@
               );
     }
 
-   /* function getScore () {
-        var value = DL.Achivment.score;
-        return value;
-    }
-
-    function getMax() {
-        var score = DL.Achivment.max_score;
-        return max;
-    }*/
-
-    WinJS.Namespace.define("DL.Achivment", {
-        Achivment: { get: getAchivment },
-        /*score: { get: value },
-        max_score: { get: max }*/
+    WinJS.Namespace.define("DL.Courses", {
+        courses: { get: getCourses },
+        grouped_courses: {get: getGroupedCourses}
     });
-
-
 
 //-------------------------------------------------------------------------------------------------
     function getPm() {
@@ -458,6 +438,15 @@
     });
 //-------------------------------------------------------------------------------------------------
 // Converters
+
+    var courseLogoFormater = WinJS.Binding.converter(function (course) {
+        var logo = course.logo;
+        './images/courses/default.png'
+    });
+
+    WinJS.Namespace.define("DL.Formaters.Courses", {
+        logoFormater: courseLogoFormater
+    });
 
     var styleMessageFormater = WinJS.Binding.converter(function (message) {
         var user_id = _currentUser.profile.id;
