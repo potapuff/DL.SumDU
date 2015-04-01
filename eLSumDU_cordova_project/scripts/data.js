@@ -325,8 +325,7 @@
                   console.log(data);
                   var courses = DL.Courses.courses;
                   for (var i in data) {
-                      data[i].score = 0;
-                      data[i].max_score = 0;
+                      data[i].score = scoreStub();
                       courses.push(data[i]);
                   }
                   fetchScore();
@@ -346,23 +345,22 @@
 
     function fetchScore() {
         var url = DL.url + "achievement/get";
-        console.log(url);
         return WinJS.xhr({ url: url }).then(
               function (response) {
                   var data = JSON.parse(response.responseText).data;
-                  console.log(data);
-                  var extend_course = function(value, index, array){
-                      for (var i in this) {
-                          console.log(value);
-                                          //TODO: связать курс и результаты
-                          if (value.id == this[i].class_id) {
-                              extend(value, { score: this[i].score, max_score: this[i].max_score });
-                              
+                  var courses = DL.Courses.courses;
+                  for (var i = 0; i < courses.length; i++) {
+                      var item = DL.Courses.courses.getAt(i);
+                      for (var j in data) {
+                          if (item.id == data[j].class_id) {
+                              item.score.score =data[j].score;
+                              item.score.max_score = data[j].max_score;
+                              item.title = item.title;
+                              courses.notifyMutated(i);
                               break;
                           }
                       }
                   }
-                  DL.Courses.courses.forEach(extend_course, data);
                   DL.Courses.courses.notifyReload();
               },
               function (error) {

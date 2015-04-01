@@ -24,9 +24,14 @@
                     </div>
                     <div class="itemTemplate" id="courseItem" data-win-control="WinJS.Binding.Template">
                         <img src="#" data-win-bind="src: logo DL.Formaters.Courses.logoFormater; alt: title" class="pic_course" />
-                        <progress id="determinateProgressBar" data-win-options="value: score; max_value: max_score"></progress>
-                        <div class="win-type-medium" data-win-bind="textContent: title"></div>
-                    </div>
+                        <div>
+                        <span data-win-bind="textContent: score.score">0</span>
+                        <progress class="determinateProgressBar" data-win-bind="value: score.score; max_value: score.max_score"></progress>
+                        <span data-win-bind="textContent: score.max_score">0</span>
+                        </div>
+
+                                <div class="win-type-medium" data-win-bind="textContent: title"></div>
+</div>
                     <div class="itemslist tiles_list" data-win-control="WinJS.UI.ListView" data-win-options="{
                         itemDataSource: DL.Courses.grouped_courses.dataSource,
                         groupDataSource: DL.Courses.grouped_courses.groups.dataSource,
