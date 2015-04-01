@@ -325,7 +325,8 @@
                   console.log(data);
                   var courses = DL.Courses.courses;
                   for (var i in data) {
-                      data.score = scoreStub();
+                      data[i].score = 0;
+                      data[i].max_score = 0;
                       courses.push(data[i]);
                   }
                   fetchScore();
@@ -352,15 +353,17 @@
                   console.log(data);
                   var extend_course = function(value, index, array){
                       for (var i in this) {
-                          //TODO: связать курс и результаты
-                          if (value.course_id == this[i].course_id) {
-                              extend(value.score, this[i]);
+                          console.log(value);
+                                          //TODO: связать курс и результаты
+                          if (value.id == this[i].class_id) {
+                              extend(value, { score: this[i].score, max_score: this[i].max_score });
+                              
                               break;
                           }
                       }
                   }
-                  DL.Courses.course.forEach(extend_course, data);
-                  DL.Courses.course.notifyReload();
+                  DL.Courses.courses.forEach(extend_course, data);
+                  DL.Courses.courses.notifyReload();
               },
               function (error) {
                   console.log('error:' + error.responseText);
@@ -439,9 +442,11 @@
 //-------------------------------------------------------------------------------------------------
 // Converters
 
-    var courseLogoFormater = WinJS.Binding.converter(function (course) {
-        var logo = course.logo;
-        './images/courses/default.png'
+    var courseLogoFormater = WinJS.Binding.converter(function (logo) {
+        if (logo == null) {
+            return './images/courses/default.png'
+        } 
+        return logo;
     });
 
     WinJS.Namespace.define("DL.Formaters.Courses", {
