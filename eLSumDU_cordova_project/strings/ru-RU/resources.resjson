@@ -1,0 +1,20 @@
+﻿{
+    "App.title": "eLearning в СумДУ",
+	"Course.title": "Курсы",
+	"Messages.title": "Сообщения",
+    "Messages.Folder.I": "Входящие",
+	"Messages.Folder.S": "Отправленные",
+	"Messages.Folder.T": "Удаленные",
+
+
+	"Roles.course.tutor":"Преподавание",
+	"Roles.course.student":"Изучение",
+
+	"Login.title": "Вход в DL.SumDU",
+	"Login.password": "Пароль",
+	"Login.login": "Логин",
+	"Login.auto": "автоматический вход",
+	"Login.submit":"Войти!",
+    "Login.logout":"Выход"
+
+}

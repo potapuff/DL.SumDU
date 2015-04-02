@@ -141,6 +141,7 @@
     <Content Include="scripts\WinJS\WinJS.4.0.4.js" />
     <Content Include="scripts\WinJS\WinJS.intellisense-setup.js" />
     <Content Include="scripts\WinJS\WinJS.intellisense.js" />
+    <Content Include="strings\ru-RU\resources.resjson" />
     <Content Include="strings\uk-UA\resources.resjson" />
     <Folder Include="merges\wp8\" />
     <Folder Include="res\icons\android\" />

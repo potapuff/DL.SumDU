@@ -33,7 +33,7 @@
 
         ui.disableAnimations();
         var lang = window.navigator.language;
-        if (['uk-UA', 'en-US'].indexOf(lang) < 0 ) {
+        if (['uk-UA', 'en-US', 'ru-RU'].indexOf(lang) < 0) {
             lang = 'en-US';
         }
         Windows.Globalization.ApplicationLanguages.primaryLanguageOverride = lang;
