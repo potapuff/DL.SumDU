@@ -25,9 +25,9 @@
                     <div class="itemTemplate" id="courseItem" data-win-control="WinJS.Binding.Template">
                         <img src="#" data-win-bind="src: logo DL.Formaters.Courses.logoFormater; alt: title" class="pic_course" />
                         <div>
-                        <span data-win-bind="textContent: score.score">0</span>
-                        <progress class="determinateProgressBar" data-win-bind="value: score.score; max_value: score.max_score"></progress>
-                        <span data-win-bind="textContent: score.max_score">0</span>
+                        <!--<span data-win-bind="textContent: score.score">0</span>
+                            <span data-win-bind="textContent: score.max_score">0</span>-->
+                            <progress class="determinateProgressBar" data-win-bind="max: score.max_score; value: score.score"></progress>
                         </div>
 
                                 <div class="win-type-medium" data-win-bind="textContent: title"></div>
