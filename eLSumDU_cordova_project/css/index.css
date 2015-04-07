@@ -224,12 +224,18 @@
 	background-color: #00BFFF;
 }
 .scrolly {
-    overflow-y:scroll;
+    /*overflow-y:scroll;*/
 }
 .win-container {
-    width:85% !important;
+    /*width:85% !important;*/
     text-align:center;
 }
 .win-itemsblock {
     /*width:80% !important;*/
+}
+.win-itembox:focus {
+    background-color: #36AEF0;
+    outline: 5px red solid;
+    z-index: 2;
+    box-shadow: 0 0 20px 1px #000000;
 }

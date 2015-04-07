@@ -25,8 +25,21 @@
             <div class="mail_pivot master" data-win-control="WinJS.UI.Pivot">
             </div>
             <div class="message detail">
-                <h3 data-win-bind="innerText: current_mail.subject DL.Formaters.Messages.tilteFormater"></h3>
-                <div data-win-bind="innerHTML: current_mail.body"></div>
+                <div class="textmessage">
+                    <h3 data-win-bind="innerText: current_mail.subject DL.Formaters.Messages.tilteFormater"></h3>
+                    <div data-win-bind="innerHTML: current_mail.body"></div>
+                </div>
+                <div class="answer">
+                   <!-- <textarea class="smallText" cols="40" id="message_body" name="message[body]" onclick="answer();" rows="20">
+                        ----
+                    </textarea>
+<select onchange="this.form.message_cc_list.select();this.form.message_cc_list.value +=(this.form.message_cc_list.value.toLowerCase() == this.form.message_cc_list.value.toUpperCase())?this.value:(';'+this.value); "></select>
+                    <div id="notice_rcpt" class="notice"> </div>
+                    <input id="message_cc_list" name="message[cc_list]" size="60" type="text">
+                    <div id="rcpt" class="tiny"></div>
+                    <input type="hidden" value="" id="rejected" name="rejected">
+                </div>
+    -->
             </div>
 
         </section>

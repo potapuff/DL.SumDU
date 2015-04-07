@@ -1308,7 +1308,7 @@ h6 {
 }
 .win-listview .win-itemscontainer {
   overflow: hidden;
-  overflow-y:auto !important;
+  /*/*//overflow-y:auto !important;*/*/
 }
 .win-listview .win-itemscontainer-padder {
   width: 0;
@@ -1829,7 +1829,7 @@ html.win-hoverable .win-itemcontainer.win-itembox.win-selected:hover::before {
   height: 100%;
 }
 .win-listview .win-horizontal .win-gridlayout .win-uniformgridlayout .win-itemsblock {
-  /*height: 100%;*/
+  height: 100%;
 }
 .win-listview .win-horizontal .win-gridlayout .win-cellspanninggridlayout.win-itemscontainer.win-laidout {
   display: -ms-grid;
@@ -5816,7 +5816,7 @@ textarea:focus,
 .win-textarea:focus {
   color: #000000;
   background-color: #ffffff;
-  border-color: #0078d7;
+  border-color: #36AEF0;
 }
 input::-ms-clear,
 input::-ms-reveal {

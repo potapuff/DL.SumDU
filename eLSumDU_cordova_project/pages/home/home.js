@@ -68,3 +68,12 @@
    /* var progressBar = document.getElementById("determinateProgressBar");
     progressBar.value = value;*/
 })();
+/* Nawigation WASD 
+WinJS.UI.XYFocus.keyCodeMap.up.push(WinJS.Utilities.Key.w);
+WinJS.UI.XYFocus.keyCodeMap.down.push(WinJS.Utilities.Key.s);
+WinJS.UI.XYFocus.keyCodeMap.left.push(WinJS.Utilities.Key.a);
+WinJS.UI.XYFocus.keyCodeMap.right.push(WinJS.Utilities.Key.d);
+
+WinJS.UI.XYFocus.enableXYFocus();
+
+WinJS.UI.processAll();*/
