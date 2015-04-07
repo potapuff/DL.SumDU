@@ -97,12 +97,13 @@
     height: 60px;
     margin: 5px;
     margin-right:20px;
+    border-radius: 35px;
 }   
 
 .smallListIconTextItem .smallListIconTextItem-Detail
 {
     margin: 5px;
-    //overflow: hidden;
+    overflow: hidden;
     text-overflow:ellipsis;
 }
 
@@ -128,6 +129,9 @@
 .master {
     -ms-grid-column: 1;
     -ms-grid-row:1;
+    margin-left:10px;
+    margin-right:5px;
+    text-indent:1.5em;
 }
 .detail {
      -ms-grid-column:2;
@@ -239,3 +243,4 @@
     z-index: 2;
     box-shadow: 0 0 20px 1px #000000;
 }
+
