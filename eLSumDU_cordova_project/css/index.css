@@ -134,8 +134,10 @@
     text-indent:1.5em;
 }
 .detail {
-     -ms-grid-column:2;
-     -ms-grid-row:1;
+     /*-ms-grid-column:2;
+     -ms-grid-row:1;*/
+     width:205%;
+     margin-left:100%;
 }
 
 .paper {
